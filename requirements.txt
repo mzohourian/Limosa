@@ -1,3 +1,8 @@
 streamlit
 anthropic
 Pillow
+openai
+pinecone-client
+numpy
+pandas
+scikit-learn

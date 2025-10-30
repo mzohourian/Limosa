@@ -6,11 +6,14 @@ import io
 import os
 import sys
 
-# Add path to access Enhanced Veterinary Assistant v4.0
-sys.path.append('..')
-sys.path.append('../comprehensive_veterinary_drugs_database/production_code')
+# Add current directory and subdirectories to path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
+sys.path.insert(0, os.path.join(current_dir, 'comprehensive_veterinary_drugs_database', 'production_code'))
 
 # Import Enhanced Veterinary Assistant v4.0 system
+COMPREHENSIVE_SYSTEM_AVAILABLE = False
+
 try:
     from enhanced_veterinary_assistant_v4 import EnhancedVeterinaryAssistantV4
     COMPREHENSIVE_SYSTEM_AVAILABLE = True

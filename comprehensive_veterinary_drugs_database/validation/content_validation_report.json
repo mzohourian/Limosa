@@ -1,0 +1,665 @@
+{
+  "validation_timestamp": "2025-08-06 07:39:35.982476",
+  "overall_grade": "POOR",
+  "overall_score": 60.5,
+  "production_ready": false,
+  "component_scores": {
+    "content_coverage": 30.8,
+    "drug_quality": 100.0,
+    "content_integrity": 60.5
+  },
+  "key_strengths": [
+    "Comprehensive dosing information",
+    "Complete drug profiles",
+    "High content quality"
+  ],
+  "identified_issues": [],
+  "detailed_analysis": {
+    "pattern_analysis": {
+      "drug_sections": 12253,
+      "dosing_information": 16466,
+      "contraindications": 14408,
+      "adverse_effects": 20714,
+      "pharmacology": 17727,
+      "administration_routes": 35343,
+      "species_specific": 27814,
+      "chemical_names": 0,
+      "proper_medical_structure": 23728,
+      "incomplete_sentences": 43,
+      "truncated_content": 31,
+      "drug_sections_percentage": 21.22834372834373,
+      "dosing_information_percentage": 28.527373527373527,
+      "contraindications_percentage": 24.961884961884962,
+      "adverse_effects_percentage": 35.88704088704089,
+      "pharmacology_percentage": 30.712058212058214,
+      "administration_routes_percentage": 61.231808731808734,
+      "species_specific_percentage": 48.18780318780318,
+      "chemical_names_percentage": 0.0,
+      "proper_medical_structure_percentage": 41.10880110880111,
+      "incomplete_sentences_percentage": 0.07449757449757449,
+      "truncated_content_percentage": 0.05370755370755371
+    },
+    "drug_completeness": {
+      "total_unique_drugs": 347,
+      "top_drugs": [
+        [
+          "Insulin",
+          1693
+        ],
+        [
+          "Digoxin",
+          873
+        ],
+        [
+          "Ketoconazole",
+          739
+        ],
+        [
+          "Ampicillin",
+          738
+        ],
+        [
+          "Aspirin",
+          584
+        ],
+        [
+          "Erythromycin",
+          550
+        ],
+        [
+          "Amoxicillin",
+          505
+        ],
+        [
+          "Itraconazole",
+          491
+        ],
+        [
+          "Penicillin",
+          474
+        ],
+        [
+          "Metronidazole",
+          359
+        ],
+        [
+          "Clindamycin",
+          348
+        ],
+        [
+          "Omeprazole",
+          341
+        ],
+        [
+          "Milbemycin",
+          337
+        ],
+        [
+          "Acepromazine",
+          327
+        ],
+        [
+          "Albendazole",
+          308
+        ],
+        [
+          "Fluconazole",
+          300
+        ],
+        [
+          "Azithromycin",
+          295
+        ],
+        [
+          "Vancomycin",
+          283
+        ],
+        [
+          "Miconazole",
+          278
+        ],
+        [
+          "Voriconazole",
+          268
+        ]
+      ],
+      "completeness_analysis": {
+        "Insulin": {
+          "mention_count": 1693,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 918,
+            "contraindications": 638,
+            "adverse_effects": 551,
+            "pharmacology": 387,
+            "species_info": 1079,
+            "sample_chunks": [
+              "PAGE 219 CONTEXT: 192      Carprofen\n\t■ACE Inhibitors (eg, benazepril, enalapril): ACE inhibitors act \nthrough the effects of vasodilatory prostaglandins on renal func-\ntion, so NSAIDs may decrease th...",
+              "PAGE 219 SECTION: 192      Carprofen\n\t■ACE Inhibitors (eg, benazepril, enalapril): ACE inhibitors act \nthrough the effects of vasodilatory prostaglandins on renal func-\ntion, so NSAIDs may decrease th...",
+              "PAGE 219 COMPREHENSIVE SECTION 4: lace other highly bound drugs; increased serum con-\ncentrations may occur. Although these interactions are typically \nnot a clinical concern, caution is advised when ..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Digoxin": {
+          "mention_count": 873,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 530,
+            "contraindications": 462,
+            "adverse_effects": 500,
+            "pharmacology": 210,
+            "species_info": 592,
+            "sample_chunks": [
+              "PAGE 1312 CONTEXT: Tylosin      1285\nThe World Health Organization (WHO) has designated macro-\nlides as Critically Important, Highest Priority antimicrobials for hu-\nman medicine.9 The Office Internat...",
+              "PAGE 1312 SECTION: Tylosin      1285\nThe World Health Organization (WHO) has designated macro-\nlides as Critically Important, Highest Priority antimicrobials for hu-\nman medicine.9 The Office Internat...",
+              "PAGE 1312 COMPREHENSIVE SECTION 9: he-\noretical in humans or animals receiving tylosin and may be of signif-\nicance in veterinary patients. Unless otherwise noted, use together \nis not necessarily con..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Ketoconazole": {
+          "mention_count": 739,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 373,
+            "contraindications": 312,
+            "adverse_effects": 343,
+            "pharmacology": 100,
+            "species_info": 611,
+            "sample_chunks": [
+              "PAGE 81 CONTEXT: 54      Aminophylline\ncamels, protein binding is ≈33%, volume of distribution is ≈0.8 L/kg, \nand elimination half-life is ≈11 hours.11 Oral bioavailability in goats \nand camels is 90%...",
+              "PAGE 81 SECTION: 54      Aminophylline\ncamels, protein binding is ≈33%, volume of distribution is ≈0.8 L/kg, \nand elimination half-life is ≈11 hours.11 Oral bioavailability in goats \nand camels is 90%...",
+              "PAGE 291 CONTEXT: 264      Cimetidine\nIn horses, after oral administration, bioavailability is only ≈30%; \nafter IV administration the steady-state volume of distribution is \n1.1 L/kg, median plasma c..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Ampicillin": {
+          "mention_count": 738,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 458,
+            "contraindications": 210,
+            "adverse_effects": 220,
+            "pharmacology": 152,
+            "species_info": 464,
+            "sample_chunks": [
+              "PAGE 106 CONTEXT: Ampicillin      79\nPharmacokinetics\nAmpicillin anhydrous and trihydrate are relatively stable in the pres-\nence of gastric acid. After oral administration, ampicillin is absorbed \n≈3...",
+              "PAGE 106 CONTEXT: Ampicillin      79\nPharmacokinetics\nAmpicillin anhydrous and trihydrate are relatively stable in the pres-\nence of gastric acid. After oral administration, ampicillin is absorbed \n≈3...",
+              "PAGE 106 CONTEXT: Ampicillin      79\nPharmacokinetics\nAmpicillin anhydrous and trihydrate are relatively stable in the pres-\nence of gastric acid. After oral administration, ampicillin is absorbed \n≈3..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Aspirin": {
+          "mention_count": 584,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 315,
+            "contraindications": 297,
+            "adverse_effects": 321,
+            "pharmacology": 114,
+            "species_info": 431,
+            "sample_chunks": [
+              "PAGE 1281 CONTEXT: 1254      Tolfenamic Acid\nThe drug is reportedly physically compatible with the commonly \nused IV solutions.\nDosage Forms/Regulatory Status\nVETERINARY-LABELED PRODUCTS:\nTolazoline H...",
+              "PAGE 1281 SECTION: 1254      Tolfenamic Acid\nThe drug is reportedly physically compatible with the commonly \nused IV solutions.\nDosage Forms/Regulatory Status\nVETERINARY-LABELED PRODUCTS:\nTolazoline H...",
+              "PAGE 1281 COMPREHENSIVE SECTION 10: ded. For general information related to overdose and \ntoxin exposures, as well as contact information for poison control \ncenters, refer to Appendix.\nDrug Interacti..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Erythromycin": {
+          "mention_count": 550,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 290,
+            "contraindications": 186,
+            "adverse_effects": 267,
+            "pharmacology": 110,
+            "species_info": 376,
+            "sample_chunks": [
+              "PAGE 273 CONTEXT: 246      Chloramphenicol\nthe treatment of methicillin-resistant staphylococcal infections and \nbacterial prostatitis caused by susceptible bacteria. In cats, it is used \nfor the trea...",
+              "PAGE 273 SECTION: 246      Chloramphenicol\nthe treatment of methicillin-resistant staphylococcal infections and \nbacterial prostatitis caused by susceptible bacteria. In cats, it is used \nfor the trea...",
+              "PAGE 273 COMPREHENSIVE SECTION 2: t it can be bactericidal at higher concentrations or \nagainst some susceptible organisms. Chloramphenicol acts by bind-\ning to the 50S ribosomal subunit of susceptibl..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Amoxicillin": {
+          "mention_count": 505,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 300,
+            "contraindications": 93,
+            "adverse_effects": 178,
+            "pharmacology": 96,
+            "species_info": 300,
+            "sample_chunks": [
+              "PAGE 964 CONTEXT: Nitrofurantoin      937\noral administration ranged from 19 to 87 minutes.  \nTherapeutic concentrations in the systemic circulation are not \nmaintained because of the rapid eliminatio...",
+              "PAGE 964 SECTION: Nitrofurantoin      937\noral administration ranged from 19 to 87 minutes.  \nTherapeutic concentrations in the systemic circulation are not \nmaintained because of the rapid eliminatio...",
+              "PAGE 964 COMPREHENSIVE SECTION 10: , Macrobid®]). \nAs a second-line antimicrobial for sporadic bacterial cysti-\ntis, particularly when multidrug-resistant pathogens are in-\nvolved (extra-label): 4.4 –..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Itraconazole": {
+          "mention_count": 491,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 327,
+            "contraindications": 238,
+            "adverse_effects": 265,
+            "pharmacology": 59,
+            "species_info": 409,
+            "sample_chunks": [
+              "PAGE 291 CONTEXT: 264      Cimetidine\nIn horses, after oral administration, bioavailability is only ≈30%; \nafter IV administration the steady-state volume of distribution is \n1.1 L/kg, median plasma c...",
+              "PAGE 291 SECTION: 264      Cimetidine\nIn horses, after oral administration, bioavailability is only ≈30%; \nafter IV administration the steady-state volume of distribution is \n1.1 L/kg, median plasma c...",
+              "PAGE 291 COMPREHENSIVE SECTION 8: l efficacy because of lack of metabolism to its active form. \nHowever, the clinical effects of this are unclear.14\n\t■Iron Preparations, Oral (eg, ferrous sulfate): Ci..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Penicillin": {
+          "mention_count": 474,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 286,
+            "contraindications": 171,
+            "adverse_effects": 175,
+            "pharmacology": 64,
+            "species_info": 264,
+            "sample_chunks": [
+              "PAGE 1020 CONTEXT: Penicillin G      993\nlar secretion. Elimination half-lives are rapid and are usually 1 hour \nor less in most species (if normal renal function exists).\nContraindications/Precaution...",
+              "PAGE 1020 CONTEXT: Penicillin G      993\nlar secretion. Elimination half-lives are rapid and are usually 1 hour \nor less in most species (if normal renal function exists).\nContraindications/Precaution...",
+              "PAGE 1020 CONTEXT: Penicillin G      993\nlar secretion. Elimination half-lives are rapid and are usually 1 hour \nor less in most species (if normal renal function exists).\nContraindications/Precaution..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Metronidazole": {
+          "mention_count": 359,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 198,
+            "contraindications": 131,
+            "adverse_effects": 165,
+            "pharmacology": 74,
+            "species_info": 246,
+            "sample_chunks": [
+              "PAGE 572 CONTEXT: Fluorouracil      545\ncyclophosphamide—AC or FAC protocol), dermal squamous cell \ncarcinoma, and GI tract tumors. One study described the use of flu-\norouracil in combination with ca...",
+              "PAGE 572 SECTION: Fluorouracil      545\ncyclophosphamide—AC or FAC protocol), dermal squamous cell \ncarcinoma, and GI tract tumors. One study described the use of flu-\norouracil in combination with ca...",
+              "PAGE 572 COMPREHENSIVE SECTION 12: e the metabolism of CYP2C9 substrates.\n\t■Folic Acid/Leucovorin: May increase the toxic effects of flu-\norouracil\n\t■Leflunomide: Concurrent or sequential use of leflu..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Clindamycin": {
+          "mention_count": 348,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 203,
+            "contraindications": 163,
+            "adverse_effects": 152,
+            "pharmacology": 75,
+            "species_info": 255,
+            "sample_chunks": [
+              "PAGE 310 CONTEXT: Clindamycin       283\nClindamycin is also used for a variety of protozoal infections, in-\ncluding toxoplasmosis, but high doses may be required to achieve \nadequate CNS concentration...",
+              "PAGE 310 CONTEXT: Clindamycin       283\nClindamycin is also used for a variety of protozoal infections, in-\ncluding toxoplasmosis, but high doses may be required to achieve \nadequate CNS concentration...",
+              "PAGE 310 CONTEXT: Clindamycin       283\nClindamycin is also used for a variety of protozoal infections, in-\ncluding toxoplasmosis, but high doses may be required to achieve \nadequate CNS concentration..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Omeprazole": {
+          "mention_count": 341,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 171,
+            "contraindications": 96,
+            "adverse_effects": 140,
+            "pharmacology": 50,
+            "species_info": 246,
+            "sample_chunks": [
+              "PAGE 262 CONTEXT: Cephalexin      235\nevery 8 hours, plasma and interstitial concentrations were achieved \nto only treat gram-positive bacteria with MIC less than 0.5 µg/mL.12\nAn oil-based suspension ...",
+              "PAGE 262 CONTEXT: Cephalexin      235\nevery 8 hours, plasma and interstitial concentrations were achieved \nto only treat gram-positive bacteria with MIC less than 0.5 µg/mL.12\nAn oil-based suspension ...",
+              "PAGE 262 SECTION: Cephalexin      235\nevery 8 hours, plasma and interstitial concentrations were achieved \nto only treat gram-positive bacteria with MIC less than 0.5 µg/mL.12\nAn oil-based suspension ..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Milbemycin": {
+          "mention_count": 337,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 120,
+            "contraindications": 37,
+            "adverse_effects": 81,
+            "pharmacology": 38,
+            "species_info": 189,
+            "sample_chunks": [
+              "PAGE 914 CONTEXT: Miltefosine      887\n\t■When using milbemycin for heartworm prevention it is important \nto administer each monthly dose on schedule, as a late or missed \ndose may allow a heartworm in...",
+              "PAGE 914 CONTEXT: Miltefosine      887\n\t■When using milbemycin for heartworm prevention it is important \nto administer each monthly dose on schedule, as a late or missed \ndose may allow a heartworm in...",
+              "PAGE 914 CONTEXT: Miltefosine      887\n\t■When using milbemycin for heartworm prevention it is important \nto administer each monthly dose on schedule, as a late or missed \ndose may allow a heartworm in..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Acepromazine": {
+          "mention_count": 327,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 246,
+            "contraindications": 162,
+            "adverse_effects": 117,
+            "pharmacology": 88,
+            "species_info": 260,
+            "sample_chunks": [
+              "PAGE 30 CONTEXT: Acepromazine      3\nlong the opioid analgesic effect (neuroleptanalgesia). Acepromazine \nalso has antihistamine and antiemetic effects; however, it is not com-\nmonly used for these in...",
+              "PAGE 30 CONTEXT: Acepromazine      3\nlong the opioid analgesic effect (neuroleptanalgesia). Acepromazine \nalso has antihistamine and antiemetic effects; however, it is not com-\nmonly used for these in...",
+              "PAGE 30 CONTEXT: Acepromazine      3\nlong the opioid analgesic effect (neuroleptanalgesia). Acepromazine \nalso has antihistamine and antiemetic effects; however, it is not com-\nmonly used for these in..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Albendazole": {
+          "mention_count": 308,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 200,
+            "contraindications": 138,
+            "adverse_effects": 148,
+            "pharmacology": 64,
+            "species_info": 274,
+            "sample_chunks": [
+              "PAGE 81 CONTEXT: 54      Aminophylline\ncamels, protein binding is ≈33%, volume of distribution is ≈0.8 L/kg, \nand elimination half-life is ≈11 hours.11 Oral bioavailability in goats \nand camels is 90%...",
+              "PAGE 81 CONTEXT: 54      Aminophylline\ncamels, protein binding is ≈33%, volume of distribution is ≈0.8 L/kg, \nand elimination half-life is ≈11 hours.11 Oral bioavailability in goats \nand camels is 90%...",
+              "PAGE 81 SECTION: 54      Aminophylline\ncamels, protein binding is ≈33%, volume of distribution is ≈0.8 L/kg, \nand elimination half-life is ≈11 hours.11 Oral bioavailability in goats \nand camels is 90%..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Fluconazole": {
+          "mention_count": 300,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 180,
+            "contraindications": 135,
+            "adverse_effects": 173,
+            "pharmacology": 42,
+            "species_info": 217,
+            "sample_chunks": [
+              "PAGE 870 CONTEXT: Methadone      843\nUse methadone with extreme caution in patients with head inju-\nries, increased intracranial pressure, or acute abdominal conditions \n(eg, colic), as it may obscure...",
+              "PAGE 870 SECTION: Methadone      843\nUse methadone with extreme caution in patients with head inju-\nries, increased intracranial pressure, or acute abdominal conditions \n(eg, colic), as it may obscure...",
+              "PAGE 870 COMPREHENSIVE SECTION 13: ith ketoconazole in humans. \nIn dogs, ketoconazole did not appreciably increase methadone \nabsorption following oral administration in one study10 but ap-\npeared to ..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Azithromycin": {
+          "mention_count": 295,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 154,
+            "contraindications": 133,
+            "adverse_effects": 145,
+            "pharmacology": 85,
+            "species_info": 209,
+            "sample_chunks": [
+              "PAGE 148 CONTEXT: Azithromycin      121\nexcellent in vitro activity against most gram-positive bacteria, and \ngreater gram-negative activity (including Salmonella spp, Bordetella \nspp, Pasteurella spp...",
+              "PAGE 148 CONTEXT: Azithromycin      121\nexcellent in vitro activity against most gram-positive bacteria, and \ngreater gram-negative activity (including Salmonella spp, Bordetella \nspp, Pasteurella spp...",
+              "PAGE 148 CONTEXT: Azithromycin      121\nexcellent in vitro activity against most gram-positive bacteria, and \ngreater gram-negative activity (including Salmonella spp, Bordetella \nspp, Pasteurella spp..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Vancomycin": {
+          "mention_count": 283,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 139,
+            "contraindications": 70,
+            "adverse_effects": 102,
+            "pharmacology": 56,
+            "species_info": 185,
+            "sample_chunks": [
+              "PAGE 122 CONTEXT: Apramycin      95\nPharmacokinetics\nAfter oral administration, apramycin is partially absorbed, partic-\nularly in neonates. Absorption decreases substantially with the age \nof the ani...",
+              "PAGE 122 SECTION: Apramycin      95\nPharmacokinetics\nAfter oral administration, apramycin is partially absorbed, partic-\nularly in neonates. Absorption decreases substantially with the age \nof the ani...",
+              "PAGE 122 COMPREHENSIVE SECTION 7: eomycin.\n\t■Methotrexate: Absorption may be reduced by oral neomycin \nbut is increased by oral kanamycin (found in Amforal®).\n\t■Neuromuscular-Blocking Agents (eg, atra..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Miconazole": {
+          "mention_count": 278,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 103,
+            "contraindications": 106,
+            "adverse_effects": 67,
+            "pharmacology": 28,
+            "species_info": 238,
+            "sample_chunks": [
+              "PAGE 1410 CONTEXT: Mitomycin Ophthalmic      1383\n\t■Wait 5 minutes after applying this medication before applying any \nother medications to the eye.\n\t■Your veterinarian will need to monitor your anima...",
+              "PAGE 1410 CONTEXT: Mitomycin Ophthalmic      1383\n\t■Wait 5 minutes after applying this medication before applying any \nother medications to the eye.\n\t■Your veterinarian will need to monitor your anima...",
+              "PAGE 1410 CONTEXT: Mitomycin Ophthalmic      1383\n\t■Wait 5 minutes after applying this medication before applying any \nother medications to the eye.\n\t■Your veterinarian will need to monitor your anima..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        },
+        "Voriconazole": {
+          "mention_count": 268,
+          "completeness_score": 100,
+          "context_breakdown": {
+            "dosing_info": 155,
+            "contraindications": 110,
+            "adverse_effects": 144,
+            "pharmacology": 58,
+            "species_info": 189,
+            "sample_chunks": [
+              "PAGE 1344 CONTEXT: Warfarin      1317\nVoriconazole Powder for Oral Suspension: 45 g (40 mg/mL after re-\nconstitution) in 75 mL bottles; Vfend®, generic; (Rx)\nVoriconazole Powder for Injection, Lyophil...",
+              "PAGE 1344 CONTEXT: Warfarin      1317\nVoriconazole Powder for Oral Suspension: 45 g (40 mg/mL after re-\nconstitution) in 75 mL bottles; Vfend®, generic; (Rx)\nVoriconazole Powder for Injection, Lyophil...",
+              "PAGE 1344 SECTION: Warfarin      1317\nVoriconazole Powder for Oral Suspension: 45 g (40 mg/mL after re-\nconstitution) in 75 mL bottles; Vfend®, generic; (Rx)\nVoriconazole Powder for Injection, Lyophil..."
+            ]
+          },
+          "completeness_grade": "EXCELLENT"
+        }
+      },
+      "average_completeness": 100.0
+    },
+    "integrity_analysis": {
+      "chunks_with_complete_sentences": 243,
+      "chunks_with_medical_terminology": 3165,
+      "chunks_with_proper_formatting": 977,
+      "chunks_with_dosage_units": 4858,
+      "chunks_with_species_mentions": 3178,
+      "suspicious_chunks": [
+        {
+          "text": "PAGE 392 SECTION: Dexamethasone      365\nteria could have either PDH or ACT. Additional testing with...",
+          "length": 6986,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 941 SECTION: 914      Moxidectin/Moxidectin Combination Products \nor neurologic disorder. Dogs ...",
+          "length": 6620,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 151 SECTION: 124      Benazepril\nincrease survival (as compared with placebo) in dogs with dila...",
+          "length": 7940,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 245 CONTEXT: 218      Cefquinome\n\t■In humans, particularly those with azotemia, cephalosporins ...",
+          "length": 6366,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 910 CONTEXT: Midazolam      883\nand restraint difficulties in some cats and is best reserved fo...",
+          "length": 7061,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 472 CONTEXT: Enalapril      445\nEnalapril\nEnalaprilat\n(e-nal-a-pril)  Enacard®, Vasotec® \nAngio...",
+          "length": 7550,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1490 SECTION: Spinetoram, Topical       1463\nActive ingredients (formulation)\nSpecies\nLabel sta...",
+          "length": 3974,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 59 SECTION: 32      Alfaxalone\nbe required to facilitate the transition to inhalant maintenance...",
+          "length": 6594,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 810 CONTEXT: Lotilaner      783\ndescribes a method to prepare an extemporaneous suspension con-...",
+          "length": 7154,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 397 SECTION: 370      Dexmedetomidine\nmucous membranes. Drinking water within that time frame \n...",
+          "length": 6696,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1350 COMPREHENSIVE SECTION 7: Xylazine 1.5 mg/kg in combination with tiletamine/zolazepam \n1.5 ...",
+          "length": 831,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 773 CONTEXT: 746      Levetiracetam\nLevetiracetam\n(lee-ve-tye-ra-see-tam)  Keppra®\nAnticonvulsa...",
+          "length": 7756,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 756 SECTION: Ketoprofen      729\nKetoprofen\n(kee-toe-proe-fen)  Ketofen®\nNonsteroidal Anti-Infl...",
+          "length": 7376,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1089 SECTION: 1062      PrednisoLONE/Prednisone/PrednisoLONE Sodium Succinate \nfects in larger ...",
+          "length": 6724,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 146 SECTION: Azathioprine      119\nOverdose/Acute Toxicity\nThe oral LD50 for single doses of az...",
+          "length": 6925,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 855 SECTION: 828      Meloxicam\ntion of meloxicam 0.3 mg/kg SC has also been shown to be safe \n...",
+          "length": 6444,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1467: 000 units/g (powder)\nRx; 15 g, 30 g, and 60 g\nNyamyc®; Nystop®; generic\nNystatin 100,000 ...",
+          "length": 411,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1012: at 20°C to 25°C (68°F-77°F) or for 14 days at 2°C to \n8°C (36°F-46°F). At 0.8 mg/mL, pant...",
+          "length": 410,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 88 CONTEXT: Amitriptyline      61\n\t■Mitotane: Mitotane may induce CYP3A4 and reduce amitripty-\n...",
+          "length": 6394,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 303 CONTEXT: 276      Clarithromycin\nMonitoring\nDepending on patient’s condition, product chose...",
+          "length": 5961,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 941 CONTEXT: 914      Moxidectin/Moxidectin Combination Products \nor neurologic disorder. Dogs ...",
+          "length": 6620,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 944 CONTEXT: Moxidectin/Moxidectin Combination Products       917\nClient Information\n\t■If your ...",
+          "length": 7066,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 249 CONTEXT: 222      Ceftiofur Crystalline Free Acid\nStaphylococcus spp, Salmonella spp, and E...",
+          "length": 7847,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1442 CONTEXT: Hydrocortisone, Topical       1415\nVeterinary-Labeled Products\nRefer to the indiv...",
+          "length": 3531,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1047 CONTEXT: 1020      Pheromones\ntoxin exposures, as well as contact information for poison c...",
+          "length": 5285,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 855 CONTEXT: 828      Meloxicam\ntion of meloxicam 0.3 mg/kg SC has also been shown to be safe \n...",
+          "length": 6444,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 408 SECTION: Diazepam      381\nShort-term management of skeletal muscle spasms (extra-label): \n...",
+          "length": 6371,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 693 CONTEXT: 666      Insulin, Lispro\nInsulin, Lispro\n(inn-suh-lin, liss-pro)  Humalog®\nInsulin...",
+          "length": 7436,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1433 CONTEXT: 1406      Tobramycin Ophthalmic\nphosphate dehydrate to adjust pH; water for injec...",
+          "length": 6775,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1472 CONTEXT: Chlorhexidine, Topical      1445\nSOLUTIONS, FLUSHES, AND SCRUBS\nActive ingredient...",
+          "length": 2242,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1475 CONTEXT: 1448      Enzymes, Topical (Lactoperoxidase, Lysozyme, Lactoferrin)\nEnzymes, Topi...",
+          "length": 3420,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 779 COMPREHENSIVE SECTION 6: 0.075 mg (75 µg), \n0.088 mg (88 µg), 0.1 mg (100 µg), 0.112 mg (11...",
+          "length": 834,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 703 SECTION: 676      Insulin, Protamine Zinc\ntransitioning from another insulin product could ...",
+          "length": 7120,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1547 COMPREHENSIVE SECTION 1: 1520      Systemic Drugs Sorted by Therapeutic Class or Major Ind...",
+          "length": 835,
+          "issue": "Short/repetitive/truncated"
+        },
+        {
+          "text": "PAGE 1111 SECTION: 1084      Propofol\nare representative, but not necessarily inclusive; it is sugge...",
+          "length": 6086,
+          "issue": "Short/repetitive/truncated"
+        }
+      ],
+      "high_quality_chunks": 3845,
+      "chunks_with_complete_sentences_percentage": 4.859999999999999,
+      "chunks_with_medical_terminology_percentage": 63.3,
+      "chunks_with_proper_formatting_percentage": 19.54,
+      "chunks_with_dosage_units_percentage": 97.16,
+      "chunks_with_species_mentions_percentage": 63.56,
+      "high_quality_chunks_percentage": 76.9
+    }
+  },
+  "recommendations": [
+    "Database needs improvement before production deployment"
+  ]
+}

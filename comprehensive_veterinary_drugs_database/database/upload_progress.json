@@ -1,0 +1,41 @@
+{
+  "completed_batches": 3,
+  "total_batches": 11,
+  "chunks_uploaded": 15000,
+  "chunks_failed": 0,
+  "batch_results": [
+    {
+      "status": "success",
+      "batch_num": 1,
+      "chunks_processed": 5000,
+      "embeddings_created": 5000,
+      "chunks_uploaded": 5000,
+      "failed_embeddings": 0,
+      "failed_uploads": 0,
+      "processing_time": 184.80257105827332,
+      "success_rate": 1.0
+    },
+    {
+      "status": "success",
+      "batch_num": 2,
+      "chunks_processed": 5000,
+      "embeddings_created": 5000,
+      "chunks_uploaded": 5000,
+      "failed_embeddings": 0,
+      "failed_uploads": 0,
+      "processing_time": 180.20939898490906,
+      "success_rate": 1.0
+    },
+    {
+      "status": "success",
+      "batch_num": 3,
+      "chunks_processed": 5000,
+      "embeddings_created": 5000,
+      "chunks_uploaded": 5000,
+      "failed_embeddings": 0,
+      "failed_uploads": 0,
+      "processing_time": 180.69117403030396,
+      "success_rate": 1.0
+    }
+  ]
+}
