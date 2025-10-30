@@ -79,6 +79,10 @@ if 'messages' not in st.session_state:
 # File upload section
 uploaded_file = st.file_uploader("Upload veterinary image", type=['png', 'jpg', 'jpeg'])
 
+# Initialize defaults
+species = "Unknown"
+analysis_type = "General"
+
 if uploaded_file:
     st.image(uploaded_file, width=300)
     
@@ -111,16 +115,40 @@ if prompt := st.chat_input("Ask about veterinary cases..."):
                     image_bytes = uploaded_file.read()
                     encoded_image = base64.b64encode(image_bytes).decode('utf-8')
                     
+                    # Enhanced veterinary image analysis system prompt
+                    image_system = f"""You are an expert veterinary radiologist and diagnostician analyzing a {species} image with {analysis_type} focus.
+
+ANALYSIS FRAMEWORK:
+• Technical Quality: Image positioning, exposure, artifacts
+• Anatomical Structures: Normal vs. abnormal findings
+• Pathological Changes: Detailed description of abnormalities
+• Differential Diagnosis: List most likely conditions
+• Clinical Significance: Immediate vs. follow-up concerns
+• Recommendations: Additional imaging, treatment, monitoring
+
+SPECIES-SPECIFIC CONSIDERATIONS:
+- {species}-specific normal anatomical variations
+- Common conditions in {species}
+- Age-related changes expected
+- Emergency conditions requiring immediate intervention
+
+FOCUS AREAS for {analysis_type}:
+{"• Radiographic: Bone density, joint spaces, soft tissue contrast, organ silhouettes, gas patterns" if analysis_type == "Radiographic" else ""}
+{"• Dermatological: Lesion morphology, distribution, secondary changes, differential patterns" if analysis_type == "Dermatological" else ""}
+{"• General: Overall assessment with emphasis on most significant findings" if analysis_type == "General" else ""}
+
+Provide structured, professional analysis suitable for veterinary case records."""
+                    
                     # Call Claude
                     response = client.messages.create(
                         model="claude-3-5-haiku-20241022",
-                        max_tokens=1500,
+                        max_tokens=2000,
                         temperature=0.1,
-                        system=f"You are a veterinary diagnostician analyzing a {species} image with focus on {analysis_type}. Provide professional medical insights.",
+                        system=image_system,
                         messages=[{
                             "role": "user",
                             "content": [
-                                {"type": "text", "text": f"Please analyze this veterinary image: {prompt}"},
+                                {"type": "text", "text": f"Please provide detailed veterinary analysis: {prompt}"},
                                 {
                                     "type": "image",
                                     "source": {
@@ -150,11 +178,32 @@ if prompt := st.chat_input("Ask about veterinary cases..."):
         else:
             with st.spinner("Thinking..."):
                 try:
+                    # Enhanced veterinary system prompt with built-in knowledge
+                    veterinary_system = """You are an expert veterinary diagnostician with comprehensive knowledge of:
+
+• Veterinary pharmacology and drug dosages
+• Emergency medicine (GDV/bloat, shock, trauma)
+• Diagnostic imaging (X-rays, ultrasound)
+• Clinical pathology and laboratory values
+• Surgical procedures and techniques
+• Species-specific conditions (canine, feline, equine)
+• Infectious diseases and parasitology
+• Toxicology and poisoning management
+
+Provide professional, evidence-based veterinary advice. Always include:
+- Specific dosage calculations when relevant
+- Safety considerations and contraindications
+- Emergency protocols when applicable
+- Differential diagnosis considerations
+- Appropriate follow-up recommendations
+
+Use metric units (mg/kg) and provide ranges when appropriate. Always emphasize the need for hands-on examination and veterinary supervision."""
+                    
                     response = client.messages.create(
                         model="claude-3-5-haiku-20241022",
-                        max_tokens=1000,
+                        max_tokens=1500,
                         temperature=0.1,
-                        system="You are a veterinary assistant. Provide helpful, professional responses about veterinary medicine.",
+                        system=veterinary_system,
                         messages=[{"role": "user", "content": prompt}]
                     )
                     
