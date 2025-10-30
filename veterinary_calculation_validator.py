@@ -387,65 +387,22 @@ class VeterinaryCalculationValidator:
 
     def generate_safety_report(self, validation_result: ValidationResult) -> str:
         """
-        Generate a formatted safety report for the validation result
+        Generate a clean safety report - only show critical issues
         """
-        report = []
-        
-        # Header based on validation status
-        if validation_result.is_valid:
-            report.append("✅ CALCULATION VALIDATION PASSED")
-        else:
-            report.append("❌ CALCULATION VALIDATION FAILED")
-        
-        report.append("=" * 50)
-        
-        # Risk level
-        risk_emoji = {
-            RiskLevel.LOW: "🟢",
-            RiskLevel.MEDIUM: "🟡", 
-            RiskLevel.HIGH: "🔴",
-            RiskLevel.CRITICAL: "🚨"
-        }
-        report.append(f"{risk_emoji[validation_result.risk_level]} Risk Level: {validation_result.risk_level.value.upper()}")
-        report.append(f"🎯 Confidence: {validation_result.confidence:.1%}")
-        
-        # Manual review requirement
-        if validation_result.requires_manual_review:
-            report.append("⚠️ REQUIRES MANUAL VETERINARY REVIEW")
-        
-        # Errors
-        if validation_result.errors:
-            report.append("\n❌ ERRORS:")
+        # Only show warnings for CRITICAL issues that require intervention
+        if validation_result.risk_level == RiskLevel.CRITICAL and validation_result.errors:
+            report = []
+            report.append("⚠️ **Calculation Review Required**")
+            
+            # Only show actual errors
             for error in validation_result.errors:
-                report.append(f"   • {error}")
+                report.append(f"• {error}")
+            
+            report.append("\n*Please verify calculations with veterinary references before implementation.*")
+            return "\n".join(report)
         
-        # Warnings
-        if validation_result.warnings:
-            report.append("\n⚠️ WARNINGS:")
-            for warning in validation_result.warnings:
-                report.append(f"   • {warning}")
-        
-        # Calculation steps
-        if validation_result.calculation_steps:
-            report.append("\n🧮 CALCULATION STEPS:")
-            for step in validation_result.calculation_steps:
-                report.append(f"   {step.step_number}. {step.description}")
-                report.append(f"      Formula: {step.formula}")
-                report.append(f"      Result: {step.result:.3f} {step.units}")
-        
-        # Verification methods
-        if validation_result.verification_methods:
-            report.append(f"\n✅ Verification Methods: {', '.join(validation_result.verification_methods)}")
-        
-        # Critical safety notice
-        if validation_result.risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]:
-            report.append("\n🚨 CRITICAL SAFETY NOTICE:")
-            report.append("   • Double-check all calculations manually")
-            report.append("   • Verify with veterinary references") 
-            report.append("   • Consider patient-specific factors")
-            report.append("   • Consult with veterinary pharmacologist if uncertain")
-        
-        return "\n".join(report)
+        # For non-critical issues, return empty string (no diagnostic noise)
+        return ""
 
 def main():
     """Test the validation system with known problematic calculations"""

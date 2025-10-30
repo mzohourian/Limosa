@@ -404,13 +404,10 @@ class EnhancedVeterinaryAssistantV4:
         # Start building enhanced answer
         answer_parts = []
         
-        # Handle calculation errors first (highest priority)
+        # Handle calculation errors by providing clean response with warnings at the end
         if calculation_validation and not calculation_validation['is_valid']:
-            answer_parts.append("🚨 CRITICAL CALCULATION ERROR DETECTED")
-            answer_parts.append("The mathematical calculations in this response contain errors and should NOT be used for patient care.")
-            answer_parts.append(f"\nORIGINAL RESPONSE (DO NOT USE):\n{base_response.get('answer', '')}")
-            answer_parts.append(f"\n{calculation_validation['safety_report']}")
-            
+            # Still provide the response content, but flag for review
+            answer_parts.append(base_response.get('answer', ''))
             enhanced_response['confidence'] = 0.0
             enhanced_response['safety_override'] = True
             
@@ -456,31 +453,13 @@ class EnhancedVeterinaryAssistantV4:
                     if info['contraindications']:
                         answer_parts.append(f"   🚫 Contraindications: {', '.join(info['contraindications'])}")
             
-            # Add calculation validation if successful
-            if calculation_validation and calculation_validation['is_valid']:
-                answer_parts.append(f"\n{calculation_validation['safety_report']}")
-            elif calculation_validation and calculation_validation['requires_manual_review']:
-                answer_parts.append(f"\n{calculation_validation['safety_report']}")
-        
-        # Add comprehensive safety footer
-        answer_parts.append("\n" + "="*60)
-        answer_parts.append("🛡️ ENHANCED VETERINARY ASSISTANT v4.0")
-        answer_parts.append("="*60)
-        
-        safety_notes = []
-        safety_notes.append("✅ Principle-based veterinary knowledge retrieval")
-        safety_notes.append("✅ Dedicated CRI calculation engine available")
-        if interaction_analysis:
-            safety_notes.append("✅ Drug interaction analysis performed")
-        if hepatic_analysis:
-            safety_notes.append("✅ Hepatic metabolism principles applied")
-        if calculation_validation:
-            safety_notes.append("✅ Mathematical calculations validated")
-        
-        answer_parts.extend(safety_notes)
-        answer_parts.append("\n⚠️ ALL INFORMATION GROUNDED IN VETERINARY TEXTBOOK KNOWLEDGE BASE")
-        answer_parts.append("⚠️ CRI calculations use proper total duration protocol logic")
-        answer_parts.append("⚠️ ALWAYS verify complex clinical decisions with veterinary references")
+            # Calculation validation is handled in the safety report section below
+            
+        # Only add critical warnings if there are actual calculation errors requiring attention
+        if calculation_validation and calculation_validation.get('safety_report'):
+            safety_report = calculation_validation['safety_report'].strip()
+            if safety_report:  # Only add if there's actual critical content
+                answer_parts.append(f"\n{safety_report}")
         
         enhanced_response['answer'] = "\n".join(answer_parts)
         
