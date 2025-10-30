@@ -6,9 +6,9 @@ import io
 
 # Configure page
 st.set_page_config(
-    page_title="Limosa - Veterinary AI Assistant",
-    page_icon="🦆",
-    layout="wide"
+    page_title="Limosa",
+    page_icon="🩺",
+    layout="centered"
 )
 
 # Get API key from secrets
@@ -19,96 +19,79 @@ except:
     st.error("API key not configured")
     st.stop()
 
-# Custom CSS
+# Minimal CSS like Claude
 st.markdown("""
 <style>
 .main .block-container {
     padding-top: 2rem;
-    max-width: 1200px;
+    max-width: 720px;
+    margin: 0 auto;
 }
-.vet-header {
-    background: linear-gradient(135deg, #2E7D32, #4CAF50);
-    color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
+
+/* Hide all Streamlit UI elements */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.stDeployButton {display: none;}
+.stDecoration {display: none;}
+
+/* Clean typography */
+.main h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
     text-align: center;
 }
-.vet-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+
+/* Minimal chat interface */
+.stChatMessage {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 0;
 }
-.vet-subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
+
+/* Clean file uploader */
+.stFileUploader {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Clean selectboxes */
+.stSelectbox {
+    margin-bottom: 0.5rem;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
-st.markdown("""
-<div class="vet-header">
-    <div class="vet-title">🦆 Limosa</div>
-    <div class="vet-subtitle">AI-Powered Veterinary Diagnostics • Empowering Modern Veterinary Clinics</div>
-</div>
-""", unsafe_allow_html=True)
+# Simple header
+st.markdown("# Limosa")
 
-# Demo banner
-st.markdown("""
-<div style="background: linear-gradient(135deg, #FF7043, #FFB74D); color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
-    <strong>🚀 MVP Demo</strong> • Experience AI-powered veterinary diagnostics • Designed for modern veterinary clinics
-</div>
-""", unsafe_allow_html=True)
+# Initialize chat history
+if 'messages' not in st.session_state:
+    st.session_state.messages = [{
+        'role': 'assistant',
+        'content': "I'm an AI assistant specialized in veterinary diagnostics. Upload an image and ask me about it, or ask me any veterinary questions."
+    }]
 
-# Main interface
-col1, col2 = st.columns([2, 1])
+# File upload section
+uploaded_file = st.file_uploader("Upload veterinary image", type=['png', 'jpg', 'jpeg'])
 
-with col1:
-    st.markdown("### 💬 Veterinary Consultation")
+if uploaded_file:
+    st.image(uploaded_file, width=300)
     
-    # Initialize chat history
-    if 'messages' not in st.session_state:
-        st.session_state.messages = [{
-            'role': 'assistant',
-            'content': """Welcome to **Limosa**! 🦆 
+    col1, col2 = st.columns(2)
+    with col1:
+        species = st.selectbox("Species", ["Unknown", "Canine", "Feline", "Equine"])
+    with col2:
+        analysis_type = st.selectbox("Focus", ["General", "Radiographic", "Dermatological"])
 
-I'm your AI-powered veterinary diagnostic assistant, designed specifically for modern veterinary clinics.
-
-**What I can help with:**
-- 🔬 **X-ray Analysis** - Upload radiographs for instant interpretation
-- 📸 **Clinical Photos** - Analyze skin conditions, wounds, and abnormalities  
-- 🩺 **General Consultation** - Answer veterinary questions and provide guidance
-
-Ready to revolutionize your diagnostic workflow? Upload an image and let's get started! 💫"""
-        }]
-    
-    # Display chat messages
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-with col2:
-    st.markdown("### 📸 Image Analysis")
-    
-    uploaded_file = st.file_uploader(
-        "Upload veterinary image",
-        type=['png', 'jpg', 'jpeg'],
-        help="X-rays, clinical photos, etc."
-    )
-    
-    if uploaded_file:
-        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-        
-        species = st.selectbox(
-            "Species:",
-            ["Unknown", "Canine (Dog)", "Feline (Cat)", "Equine (Horse)"]
-        )
-        
-        analysis_type = st.selectbox(
-            "Analysis Focus:",
-            ["General assessment", "Radiographic interpretation", "Dermatological evaluation"]
-        )
+# Display chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # Chat input
 if prompt := st.chat_input("Ask about veterinary cases..."):
@@ -151,16 +134,11 @@ if prompt := st.chat_input("Ask about veterinary cases..."):
                     )
                     
                     analysis = response.content[0].text
-                    formatted_response = f"""🩺 **Professional Veterinary Analysis**
-
-**Species:** {species}  
-**Analysis Type:** {analysis_type}
+                    formatted_response = f"""**Analysis for {species}** ({analysis_type})
 
 {analysis}
 
----
-**🦆 Powered by Limosa** - AI-driven veterinary diagnostics for modern clinics  
-**⚠️ Professional Disclaimer:** This analysis supports clinical decision-making but does not replace professional veterinary examination."""
+*This analysis supports clinical decision-making but does not replace professional veterinary examination.*"""
                     
                     st.markdown(formatted_response)
                     st.session_state.messages.append({"role": "assistant", "content": formatted_response})
@@ -170,22 +148,22 @@ if prompt := st.chat_input("Ask about veterinary cases..."):
                     st.error(error_msg)
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
         else:
-            response_text = "I'm ready to help with veterinary questions. For image analysis, please upload a veterinary image and I'll provide detailed professional analysis."
-            st.markdown(response_text)
-            st.session_state.messages.append({"role": "assistant", "content": response_text})
+            with st.spinner("Thinking..."):
+                try:
+                    response = client.messages.create(
+                        model="claude-3-5-haiku-20241022",
+                        max_tokens=1000,
+                        temperature=0.1,
+                        system="You are a veterinary assistant. Provide helpful, professional responses about veterinary medicine.",
+                        messages=[{"role": "user", "content": prompt}]
+                    )
+                    
+                    response_text = response.content[0].text
+                    st.markdown(response_text)
+                    st.session_state.messages.append({"role": "assistant", "content": response_text})
+                    
+                except Exception as e:
+                    error_msg = f"Error: {str(e)}"
+                    st.error(error_msg)
+                    st.session_state.messages.append({"role": "assistant", "content": error_msg})
 
-# Footer
-st.markdown("---")
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown("**🦆 Limosa**")
-    st.markdown("AI-powered veterinary diagnostics")
-
-with col2:
-    st.markdown("**🏥 For Veterinary Clinics**")
-    st.markdown("Enhancing diagnostic capabilities")
-
-with col3:
-    st.markdown("**💡 MVP Demo**")
-    st.markdown("Experience the future of veterinary AI")
