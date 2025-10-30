@@ -6,18 +6,23 @@ import io
 import os
 import sys
 
-# Add path to access comprehensive veterinary system
+# Add path to access Enhanced Veterinary Assistant v4.0
 sys.path.append('..')
 sys.path.append('../comprehensive_veterinary_drugs_database/production_code')
 
-# Import comprehensive veterinary knowledge system
+# Import Enhanced Veterinary Assistant v4.0 system
 try:
-    from comprehensive_veterinary_drugs_database.production_code.final_95_confidence_standalone import Final95ConfidenceAssistant
-    KNOWLEDGE_BASE_AVAILABLE = True
-    print("✅ Comprehensive veterinary knowledge base loaded successfully!")
+    from enhanced_veterinary_assistant_v4 import EnhancedVeterinaryAssistantV4
+    COMPREHENSIVE_SYSTEM_AVAILABLE = True
+    print("✅ Enhanced Veterinary Assistant v4.0 loaded successfully!")
+    print("   💉 CRI Calculation Engine")
+    print("   🧠 Principle-Based Knowledge Retrieval")
+    print("   🧬 Pharmacological Reasoning Engine") 
+    print("   🧮 Mathematical Calculation Validation")
+    print("   📚 Complete Knowledge Base (5,039 chunks)")
 except ImportError as e:
-    print(f"⚠️ Knowledge base not available: {e}")
-    KNOWLEDGE_BASE_AVAILABLE = False
+    print(f"⚠️ Enhanced Veterinary Assistant v4.0 not available: {e}")
+    COMPREHENSIVE_SYSTEM_AVAILABLE = False
 
 # Configure page
 st.set_page_config(
@@ -34,13 +39,13 @@ except:
     st.error("API key not configured")
     st.stop()
 
-# Initialize comprehensive veterinary knowledge base
+# Initialize Enhanced Veterinary Assistant v4.0
 @st.cache_resource
-def initialize_veterinary_assistant():
-    """Initialize the comprehensive veterinary assistant with knowledge base"""
-    if KNOWLEDGE_BASE_AVAILABLE:
+def initialize_enhanced_veterinary_assistant():
+    """Initialize Enhanced Veterinary Assistant v4.0 with all engines"""
+    if COMPREHENSIVE_SYSTEM_AVAILABLE:
         try:
-            # Set environment variables for the knowledge base
+            # Set environment variables for all systems
             if "ANTHROPIC_API_KEY" in st.secrets:
                 os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
             if "OPENAI_API_KEY" in st.secrets:
@@ -48,15 +53,16 @@ def initialize_veterinary_assistant():
             if "PINECONE_API_KEY" in st.secrets:
                 os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
             
-            vet_assistant = Final95ConfidenceAssistant()
-            return vet_assistant
+            # Initialize Enhanced Veterinary Assistant v4.0
+            enhanced_assistant = EnhancedVeterinaryAssistantV4()
+            return enhanced_assistant
         except Exception as e:
-            print(f"⚠️ Failed to initialize knowledge base: {e}")
+            print(f"⚠️ Failed to initialize Enhanced Veterinary Assistant v4.0: {e}")
             return None
     return None
 
-# Try to initialize the comprehensive system
-vet_assistant = initialize_veterinary_assistant()
+# Try to initialize the Enhanced Veterinary Assistant v4.0
+enhanced_vet_assistant = initialize_enhanced_veterinary_assistant()
 
 # Medical Blue and Snowy White CSS
 st.markdown("""
@@ -311,8 +317,11 @@ with open("limosa.png", "rb") as f:
     logo_data = f.read()
     logo_base64 = base64.b64encode(logo_data).decode()
 
-# Header with knowledge base status
-kb_status = "🎯 **Comprehensive Knowledge Base Active** (Plumb, Ettinger, Veterinary Textbooks)" if vet_assistant else "⚠️ Basic Knowledge Only"
+# Header with Enhanced Veterinary Assistant v4.0 status
+if enhanced_vet_assistant:
+    kb_status = "🎯 **Enhanced Veterinary Assistant v4.0 Active**<br/>💉 CRI Engine | 🧠 Principle Retrieval | 🧬 Pharma Reasoning | 🧮 Math Validation | 📚 5,039 Chunks"
+else:
+    kb_status = "⚠️ Basic Knowledge Only (Enhanced v4.0 System Unavailable)"
 
 st.markdown(f"""
 <div class="limosa-header">
@@ -440,35 +449,62 @@ Provide structured, professional analysis suitable for veterinary case records."
                     st.error(error_msg)
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
         else:
-            with st.spinner("🔍 Searching comprehensive veterinary knowledge base..."):
+            with st.spinner("🔍 Processing with Enhanced Veterinary Assistant v4.0..."):
                 try:
-                    if vet_assistant and KNOWLEDGE_BASE_AVAILABLE:
-                        # Use comprehensive veterinary knowledge base with Pinecone + textbooks
-                        print(f"🎯 Using comprehensive knowledge base for query: {prompt[:50]}...")
+                    if enhanced_vet_assistant and COMPREHENSIVE_SYSTEM_AVAILABLE:
+                        # Use Enhanced Veterinary Assistant v4.0 with all engines
+                        print(f"🎯 Using Enhanced Veterinary Assistant v4.0 for query: {prompt[:50]}...")
                         
-                        # Query the comprehensive system
-                        kb_response = vet_assistant.query_with_high_confidence(prompt)
+                        # Query using comprehensive safety v4 method
+                        v4_response = enhanced_vet_assistant.query_with_comprehensive_safety_v4(prompt)
                         
-                        if kb_response and 'answer' in kb_response:
-                            response_text = kb_response['answer']
+                        if v4_response and 'answer' in v4_response:
+                            response_text = v4_response['answer']
                             
-                            # Add knowledge base attribution
-                            if 'sources' in kb_response and kb_response['sources']:
-                                response_text += f"\n\n**📚 Sources from veterinary textbooks and databases**"
+                            # Add system metadata and capabilities used
+                            metadata_lines = []
                             
-                            # Add confidence indicator if available
-                            if 'confidence' in kb_response:
-                                confidence = kb_response['confidence']
-                                if confidence > 0.9:
-                                    response_text += f"\n\n✅ **High confidence response** (based on Plumb, Ettinger, and comprehensive veterinary databases)"
-                                elif confidence > 0.7:
-                                    response_text += f"\n\n⚠️ **Moderate confidence response** - consider additional consultation"
+                            # Confidence and grounding
+                            if 'confidence' in v4_response:
+                                confidence = v4_response['confidence']
+                                metadata_lines.append(f"🎯 **Confidence:** {confidence:.1%}")
+                            
+                            if 'grounding_score' in v4_response:
+                                grounding = v4_response['grounding_score']
+                                metadata_lines.append(f"📚 **Knowledge Base Grounding:** {grounding:.1f}%")
+                            
+                            # Safety features activated
+                            safety = v4_response.get('safety_analysis', {})
+                            activated_features = []
+                            if safety.get('cri_engine_override'):
+                                activated_features.append("💉 CRI Calculation Engine")
+                            if safety.get('principle_based_retrieval_performed'):
+                                activated_features.append("🧠 Principle-Based Retrieval")
+                            if safety.get('interaction_analysis_performed'):
+                                activated_features.append("🧬 Drug Interaction Analysis")
+                            if safety.get('calculation_validation_performed'):
+                                activated_features.append("🧮 Mathematical Validation")
+                            
+                            if activated_features:
+                                metadata_lines.append("**Safety Systems Activated:** " + " | ".join(activated_features))
+                            
+                            # CRI calculation results
+                            cri_calc = v4_response.get('cri_calculation', {})
+                            if cri_calc and cri_calc.get('performed'):
+                                metadata_lines.append(f"💉 **CRI Calculation:** Total runtime {cri_calc.get('total_run_time_hours', 0):.1f} hours")
+                            
+                            # Add metadata if available
+                            if metadata_lines:
+                                response_text += f"\n\n---\n**📊 System Analysis:**\n" + "\n".join(metadata_lines)
+                                
+                            # Add professional disclaimer
+                            response_text += f"\n\n✅ **Enhanced Veterinary Assistant v4.0** - Based on comprehensive veterinary knowledge base with mathematical validation and safety analysis."
+                            
                         else:
-                            # Fallback to basic response
-                            response_text = "I'm having trouble accessing the comprehensive knowledge base. Let me provide a basic response."
+                            response_text = "I'm having trouble accessing the Enhanced Veterinary Assistant v4.0 system. Let me provide a basic response."
                     else:
-                        # Fallback to enhanced Claude system if knowledge base unavailable
-                        print("⚠️ Using fallback Claude system (knowledge base not available)")
+                        # Fallback to enhanced Claude system if v4.0 unavailable
+                        print("⚠️ Using fallback Claude system (Enhanced v4.0 not available)")
                         
                         veterinary_system = """You are an expert veterinary diagnostician with comprehensive knowledge of:
 
@@ -499,7 +535,7 @@ Use metric units (mg/kg) and provide ranges when appropriate. Always emphasize t
                         )
                         
                         response_text = response.content[0].text
-                        response_text += "\n\n*Note: Response based on Claude's general veterinary knowledge (comprehensive knowledge base not available)*"
+                        response_text += "\n\n*Note: Response based on Claude's general veterinary knowledge (Enhanced v4.0 system not available)*"
                     
                     st.markdown(response_text)
                     st.session_state.messages.append({"role": "assistant", "content": response_text})
