@@ -17,6 +17,7 @@ EnhancedVeterinaryAssistantV4 = None
 
 try:
     # Try to import the comprehensive system
+    print("🔄 Attempting to import Enhanced Veterinary Assistant v4.0...")
     from enhanced_veterinary_assistant_v4 import EnhancedVeterinaryAssistantV4
     COMPREHENSIVE_SYSTEM_AVAILABLE = True
     print("✅ Enhanced Veterinary Assistant v4.0 loaded successfully!")
@@ -25,10 +26,14 @@ try:
     print("   🧬 Pharmacological Reasoning Engine") 
     print("   🧮 Mathematical Calculation Validation")
     print("   📚 Complete Knowledge Base (5,039 chunks)")
+except ImportError as e:
+    print(f"⚠️ Import Error - Enhanced Veterinary Assistant v4.0 not available: {e}")
+    print(f"   Missing module: {str(e)}")
+    COMPREHENSIVE_SYSTEM_AVAILABLE = False
 except Exception as e:
-    print(f"⚠️ Enhanced Veterinary Assistant v4.0 not available: {e}")
+    print(f"⚠️ Other Error - Enhanced Veterinary Assistant v4.0 not available: {e}")
     print(f"   Error details: {str(e)}")
-    print("   Dependencies check failed")
+    print(f"   Error type: {type(e).__name__}")
     COMPREHENSIVE_SYSTEM_AVAILABLE = False
 
 # Configure page
