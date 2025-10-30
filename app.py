@@ -66,8 +66,11 @@ header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-# Simple header
-st.markdown("# Limosa")
+# Header with logo
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    st.image("limosa.png", width=120)
+    st.markdown("<h1 style='text-align: center; margin-top: 1rem;'>Limosa</h1>", unsafe_allow_html=True)
 
 # Initialize chat history
 if 'messages' not in st.session_state:
