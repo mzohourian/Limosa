@@ -80,7 +80,7 @@ header {visibility: hidden;}
 .clinical-logo img {
     width: 50px;
     height: 50px;
-    filter: brightness(0) invert(1);
+    filter: brightness(1.2) contrast(1.1);
 }
 
 .clinical-title {
