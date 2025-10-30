@@ -11,10 +11,12 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 sys.path.insert(0, os.path.join(current_dir, 'comprehensive_veterinary_drugs_database', 'production_code'))
 
-# Import Enhanced Veterinary Assistant v4.0 system
+# Import Enhanced Veterinary Assistant v4.0 system with graceful fallback
 COMPREHENSIVE_SYSTEM_AVAILABLE = False
+EnhancedVeterinaryAssistantV4 = None
 
 try:
+    # Try to import the comprehensive system
     from enhanced_veterinary_assistant_v4 import EnhancedVeterinaryAssistantV4
     COMPREHENSIVE_SYSTEM_AVAILABLE = True
     print("✅ Enhanced Veterinary Assistant v4.0 loaded successfully!")
@@ -23,8 +25,9 @@ try:
     print("   🧬 Pharmacological Reasoning Engine") 
     print("   🧮 Mathematical Calculation Validation")
     print("   📚 Complete Knowledge Base (5,039 chunks)")
-except ImportError as e:
+except Exception as e:
     print(f"⚠️ Enhanced Veterinary Assistant v4.0 not available: {e}")
+    print("   🔄 Will use enhanced Claude system as fallback")
     COMPREHENSIVE_SYSTEM_AVAILABLE = False
 
 # Configure page

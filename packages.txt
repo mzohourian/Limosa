@@ -1,6 +1,2 @@
-# System packages required for Streamlit Cloud deployment
-# Add any system-level dependencies here if needed
-
-# For image processing (usually pre-installed)
-# libgl1-mesa-glx
-# libglib2.0-0
+build-essential
+python3-dev
