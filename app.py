@@ -39,30 +39,27 @@ except:
     st.error("API key not configured")
     st.stop()
 
-# Initialize Enhanced Veterinary Assistant v4.0
-@st.cache_resource
-def initialize_enhanced_veterinary_assistant():
-    """Initialize Enhanced Veterinary Assistant v4.0 with all engines"""
-    if COMPREHENSIVE_SYSTEM_AVAILABLE:
-        try:
-            # Set environment variables for all systems
-            if "ANTHROPIC_API_KEY" in st.secrets:
-                os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-            if "OPENAI_API_KEY" in st.secrets:
-                os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-            if "PINECONE_API_KEY" in st.secrets:
-                os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
-            
-            # Initialize Enhanced Veterinary Assistant v4.0
-            enhanced_assistant = EnhancedVeterinaryAssistantV4()
-            return enhanced_assistant
-        except Exception as e:
-            print(f"⚠️ Failed to initialize Enhanced Veterinary Assistant v4.0: {e}")
-            return None
-    return None
+# Initialize Enhanced Veterinary Assistant v4.0 (single initialization)
+enhanced_vet_assistant = None
 
-# Try to initialize the Enhanced Veterinary Assistant v4.0
-enhanced_vet_assistant = initialize_enhanced_veterinary_assistant()
+if COMPREHENSIVE_SYSTEM_AVAILABLE:
+    try:
+        # Set environment variables for all systems
+        if "ANTHROPIC_API_KEY" in st.secrets:
+            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+        if "OPENAI_API_KEY" in st.secrets:
+            os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+        if "PINECONE_API_KEY" in st.secrets:
+            os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
+        
+        # Single initialization of Enhanced Veterinary Assistant v4.0
+        print("🔄 Initializing Enhanced Veterinary Assistant v4.0...")
+        enhanced_vet_assistant = EnhancedVeterinaryAssistantV4()
+        print("✅ Enhanced Veterinary Assistant v4.0 initialized successfully!")
+        
+    except Exception as e:
+        print(f"⚠️ Failed to initialize Enhanced Veterinary Assistant v4.0: {e}")
+        enhanced_vet_assistant = None
 
 # Medical Blue and Snowy White CSS
 st.markdown("""
