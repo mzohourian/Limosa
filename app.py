@@ -184,6 +184,50 @@ div[data-testid="stImage"] > img {
     border: none;
 }
 
+/* Professional response formatting */
+.stChatMessage[data-testid="chat-message-assistant"] {
+    background: #FAFBFF;
+    border-left: 4px solid #4A90E2;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] .stMarkdown {
+    font-family: 'Inter', sans-serif;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] h1,
+.stChatMessage[data-testid="chat-message-assistant"] h2,
+.stChatMessage[data-testid="chat-message-assistant"] h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] h2 {
+    font-size: 1.3rem;
+    border-bottom: 2px solid #E8F4FD;
+    padding-bottom: 0.5rem;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] ul,
+.stChatMessage[data-testid="chat-message-assistant"] ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.stChatMessage[data-testid="chat-message-assistant"] strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
 /* Input area styling */
 .input-area {
     position: fixed;
@@ -347,11 +391,8 @@ with open("limosa.png", "rb") as f:
     logo_data = f.read()
     logo_base64 = base64.b64encode(logo_data).decode()
 
-# Header with Enhanced Veterinary Assistant v4.0 status
-if enhanced_vet_assistant:
-    kb_status = "🎯 **Enhanced Veterinary Assistant v4.0 Active**<br/>💉 CRI Engine | 🧠 Principle Retrieval | 🧬 Pharma Reasoning | 🧮 Math Validation | 📚 5,039 Chunks"
-else:
-    kb_status = "⚠️ Basic Knowledge Only (Enhanced v4.0 System Unavailable)"
+# Clean professional header
+kb_status = ""
 
 st.markdown(f"""
 <div class="limosa-header">
@@ -360,9 +401,6 @@ st.markdown(f"""
     </div>
     <h1 class="limosa-title">Limosa</h1>
     <p class="limosa-subtitle">Veterinary Assistant</p>
-    <div style="margin-top: 1rem; font-size: 0.85rem; color: #4A90E2;">
-        {kb_status}
-    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -488,46 +526,13 @@ Provide structured, professional analysis suitable for veterinary case records."
                     v4_response = enhanced_vet_assistant.query_with_comprehensive_safety_v4(prompt)
                     
                     if v4_response and 'answer' in v4_response:
+                        # Clean professional response - no internal diagnostics
                         response_text = v4_response['answer']
                         
-                        # Add system metadata and capabilities used
-                        metadata_lines = []
-                        
-                        # Confidence and grounding
-                        if 'confidence' in v4_response:
-                            confidence = v4_response['confidence']
-                            metadata_lines.append(f"🎯 **Confidence:** {confidence:.1%}")
-                        
-                        if 'grounding_score' in v4_response:
-                            grounding = v4_response['grounding_score']
-                            metadata_lines.append(f"📚 **Knowledge Base Grounding:** {grounding:.1f}%")
-                        
-                        # Safety features activated
-                        safety = v4_response.get('safety_analysis', {})
-                        activated_features = []
-                        if safety.get('cri_engine_override'):
-                            activated_features.append("💉 CRI Calculation Engine")
-                        if safety.get('principle_based_retrieval_performed'):
-                            activated_features.append("🧠 Principle-Based Retrieval")
-                        if safety.get('interaction_analysis_performed'):
-                            activated_features.append("🧬 Drug Interaction Analysis")
-                        if safety.get('calculation_validation_performed'):
-                            activated_features.append("🧮 Mathematical Validation")
-                        
-                        if activated_features:
-                            metadata_lines.append("**Safety Systems Activated:** " + " | ".join(activated_features))
-                        
-                        # CRI calculation results
-                        cri_calc = v4_response.get('cri_calculation', {})
-                        if cri_calc and cri_calc.get('performed'):
-                            metadata_lines.append(f"💉 **CRI Calculation:** Total runtime {cri_calc.get('total_run_time_hours', 0):.1f} hours")
-                        
-                        # Add metadata if available
-                        if metadata_lines:
-                            response_text += f"\n\n---\n**📊 System Analysis:**\n" + "\n".join(metadata_lines)
-                            
-                        # Add professional disclaimer
-                        response_text += f"\n\n✅ **Enhanced Veterinary Assistant v4.0** - Based on comprehensive veterinary knowledge base with mathematical validation and safety analysis."
+                        # Only show validation warnings if there are actual calculation errors
+                        calc_validator = v4_response.get('calculation_validation', {})
+                        if calc_validator and calc_validator.get('has_critical_errors', False):
+                            response_text = f"⚠️ **Calculation Review Required**\n\n{response_text}\n\n*Please verify calculations with veterinary references before implementation.*"
                         
                     else:
                         response_text = "❌ Enhanced Veterinary Assistant v4.0 failed to generate a response. Please try again."
