@@ -84,10 +84,18 @@ div[data-testid="stImage"] > img {
 """, unsafe_allow_html=True)
 
 # Header with logo
-st.markdown('<div class="logo-container">', unsafe_allow_html=True)
-st.image("limosa.png", width=100)
-st.markdown("<h1 style='text-align: center; margin-top: 0.5rem; margin-bottom: 2rem;'>Limosa</h1>", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+# Read and encode logo
+with open("limosa.png", "rb") as f:
+    logo_data = f.read()
+    logo_base64 = base64.b64encode(logo_data).decode()
+
+st.markdown(f"""
+<div class="logo-container" style="text-align: center; margin-bottom: 2rem;">
+    <img src="data:image/png;base64,{logo_base64}" 
+         style="width: 100px; height: auto; background: transparent !important; border: none !important;">
+    <h1 style="margin-top: 1rem; margin-bottom: 0; font-size: 1.5rem; font-weight: 500; color: #1a1a1a;">Limosa</h1>
+</div>
+""", unsafe_allow_html=True)
 
 # Initialize chat history
 if 'messages' not in st.session_state:
