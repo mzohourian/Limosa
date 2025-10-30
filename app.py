@@ -27,7 +27,8 @@ try:
     print("   📚 Complete Knowledge Base (5,039 chunks)")
 except Exception as e:
     print(f"⚠️ Enhanced Veterinary Assistant v4.0 not available: {e}")
-    print("   🔄 Will use enhanced Claude system as fallback")
+    print(f"   Error details: {str(e)}")
+    print("   Dependencies check failed")
     COMPREHENSIVE_SYSTEM_AVAILABLE = False
 
 # Configure page
@@ -51,6 +52,7 @@ enhanced_vet_assistant = None
 if not COMPREHENSIVE_SYSTEM_AVAILABLE:
     st.error("❌ Enhanced Veterinary Assistant v4.0 system is required but not available!")
     st.error("Please ensure all dependencies are installed and API keys are configured.")
+    st.info("Required API keys: ANTHROPIC_API_KEY, OPENAI_API_KEY, PINECONE_API_KEY")
     st.stop()
 
 try:
@@ -72,6 +74,19 @@ except Exception as e:
     st.error("❌ Enhanced Veterinary Assistant v4.0 failed to initialize!")
     st.error(f"Error: {e}")
     st.error("This system requires the comprehensive veterinary knowledge base to function.")
+    
+    # Show specific missing components
+    missing_keys = []
+    if "ANTHROPIC_API_KEY" not in st.secrets:
+        missing_keys.append("ANTHROPIC_API_KEY")
+    if "OPENAI_API_KEY" not in st.secrets:
+        missing_keys.append("OPENAI_API_KEY") 
+    if "PINECONE_API_KEY" not in st.secrets:
+        missing_keys.append("PINECONE_API_KEY")
+    
+    if missing_keys:
+        st.error(f"Missing API keys: {', '.join(missing_keys)}")
+    
     st.stop()
 
 # Medical Blue and Snowy White CSS
