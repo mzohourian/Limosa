@@ -64,6 +64,19 @@ body {
     width: 140px;
     height: 140px;
     background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Force remove Streamlit image backgrounds */
+div[data-testid="stImage"] {
+    background: transparent !important;
+}
+
+div[data-testid="stImage"] > img {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .limosa-title {
@@ -163,17 +176,67 @@ body {
     color: #4A90E2;
 }
 
-/* Chat input field */
+/* Chat input field - style the default Streamlit input */
 div[data-testid="stChatInput"] {
-    flex: 1;
-    margin: 0 0.5rem;
-    border: none;
-    background: transparent;
+    margin: 2rem;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(74, 144, 226, 0.1);
 }
 
 div[data-testid="stChatInput"] > div {
     border: none;
     background: transparent;
+}
+
+div[data-testid="stChatInput"] input {
+    padding-left: 3.5rem !important;
+    padding-right: 3.5rem !important;
+}
+
+.stChatInputContainer {
+    position: relative;
+}
+
+/* Add buttons to input area */
+.stChatInputContainer::before {
+    content: "+";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #6b6b6b;
+    z-index: 10;
+}
+
+.stChatInputContainer::after {
+    content: "🎤";
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    z-index: 10;
 }
 
 /* File uploader */
@@ -254,24 +317,7 @@ if uploaded_file:
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Input area with upload and mic buttons
-st.markdown("""
-<div class="input-area">
-    <div class="input-wrapper">
-        <div class="upload-btn" onclick="document.querySelector('[data-testid=\\"stFileUploadDropzone\\"]').click()" title="Upload image">
-            +
-        </div>
-        <div style="flex: 1; display: flex; align-items: center;">
-            <!-- Chat input will be inserted here by Streamlit -->
-        </div>
-        <div class="mic-btn" title="Voice input">
-            🎤
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Chat input
+# Chat input (this creates the text box)
 if prompt := st.chat_input("Type your veterinary question here..."):
     # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
