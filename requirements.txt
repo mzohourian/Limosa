@@ -2,7 +2,7 @@ streamlit
 anthropic
 Pillow
 openai
-pinecone-client
+pinecone
 numpy
 pandas
 tqdm
