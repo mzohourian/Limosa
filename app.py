@@ -25,26 +25,22 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --clinical-primary: #0f4c75;
-    --clinical-secondary: #3282b8;
-    --clinical-accent: #bbe1fa;
-    --clinical-success: #27ae60;
-    --clinical-warning: #f39c12;
-    --clinical-error: #e74c3c;
-    --clinical-text: #2c3e50;
-    --clinical-text-light: #7f8c8d;
-    --clinical-bg: #ffffff;
-    --clinical-bg-light: #f8f9fa;
-    --clinical-border: #e9ecef;
-    --clinical-shadow: rgba(15, 76, 117, 0.08);
+    --medical-blue: #4A90E2;
+    --medical-blue-light: #E8F4FD;
+    --medical-blue-dark: #2E5C8A;
+    --snowy-white: #FEFEFE;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --border-light: #e5e5e5;
+    --shadow-light: rgba(74, 144, 226, 0.1);
 }
 
-/* Global Layout */
+/* Global Layout - Claude Style */
 .main .block-container {
-    padding: 0;
-    max-width: 1200px;
+    padding: 2rem;
+    max-width: 800px;
     margin: 0 auto;
-    background: var(--clinical-bg);
+    background: var(--snowy-white);
 }
 
 /* Hide Streamlit elements */
@@ -54,122 +50,49 @@ header {visibility: hidden;}
 .stDeployButton {display: none;}
 .stDecoration {display: none;}
 
-/* Professional Header */
-.clinical-header {
-    background: linear-gradient(135deg, var(--clinical-primary) 0%, var(--clinical-secondary) 100%);
-    padding: 3rem 2rem;
+/* Claude-style Header */
+.claude-header {
     text-align: center;
-    color: white;
-    margin-bottom: 0;
-    box-shadow: 0 4px 20px var(--clinical-shadow);
-}
-
-.clinical-logo {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.clinical-logo img {
-    width: 50px;
-    height: 50px;
-    filter: brightness(1.2) contrast(1.1);
-}
-
-.clinical-title {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: -0.02em;
-}
-
-.clinical-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    opacity: 0.9;
-    margin-top: 0.5rem;
-}
-
-/* Main Content Area */
-.clinical-main {
-    padding: 3rem 2rem;
-    background: var(--clinical-bg);
-}
-
-/* Professional File Upload */
-.clinical-upload {
-    background: var(--clinical-bg-light);
-    border: 2px dashed var(--clinical-border);
-    border-radius: 16px;
-    padding: 3rem 2rem;
-    text-align: center;
+    padding: 2rem 0 3rem 0;
+    background: var(--snowy-white);
+    border-bottom: 1px solid var(--border-light);
     margin-bottom: 2rem;
-    transition: all 0.3s ease;
 }
 
-.clinical-upload:hover {
-    border-color: var(--clinical-secondary);
-    background: rgba(50, 130, 184, 0.02);
-}
-
-.clinical-upload-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--clinical-accent);
-    border-radius: 50%;
+.claude-logo {
+    width: 120px;
+    height: 120px;
     margin: 0 auto 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: var(--clinical-primary);
 }
 
-/* Professional Controls */
-.clinical-controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
+.claude-logo img {
+    width: 100px;
+    height: 100px;
 }
 
-.clinical-select {
-    background: white;
-    border: 1px solid var(--clinical-border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+.claude-title {
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: var(--clinical-text);
-    min-width: 150px;
-}
-
-/* Chat Interface */
-.clinical-chat {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 20px var(--clinical-shadow);
-    margin-bottom: 2rem;
-    overflow: hidden;
-}
-
-.clinical-chat-header {
-    background: var(--clinical-bg-light);
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--clinical-border);
-    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
     font-weight: 600;
-    color: var(--clinical-text);
-    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.claude-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Claude-style Chat Interface */
+.claude-chat {
+    background: var(--snowy-white);
+    margin-bottom: 6rem;
 }
 
 /* Messages */
@@ -259,18 +182,72 @@ h1, h2, h3 {
     font-family: 'Inter', sans-serif;
 }
 
-/* Chat Input Styling */
-div[data-testid="stChatInput"] {
-    background: white;
-    border: 1px solid var(--clinical-border);
-    border-radius: 12px;
-    margin: 2rem;
-    box-shadow: 0 2px 10px var(--clinical-shadow);
+/* Claude-style Input Area */
+.claude-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--snowy-white);
+    border-top: 1px solid var(--border-light);
+    padding: 1.5rem;
+    z-index: 1000;
 }
 
-div[data-testid="stChatInput"] > div {
-    border: none;
-    background: transparent;
+.claude-input-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.claude-upload-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: var(--snowy-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.claude-upload-btn:hover {
+    background: var(--medical-blue-light);
+    color: var(--medical-blue);
+    border-color: var(--medical-blue);
+}
+
+.claude-mic-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: var(--snowy-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.claude-mic-btn:hover {
+    background: var(--medical-blue-light);
+    color: var(--medical-blue);
+    border-color: var(--medical-blue);
+}
+
+/* Hide default chat input styling */
+div[data-testid="stChatInput"] {
+    display: none;
 }
 
 /* Professional Status Messages */
@@ -303,87 +280,59 @@ with open("limosa.png", "rb") as f:
     logo_data = f.read()
     logo_base64 = base64.b64encode(logo_data).decode()
 
-# Professional Header
+# Claude-style Header
 st.markdown(f"""
-<div class="clinical-header">
-    <div class="clinical-logo">
+<div class="claude-header">
+    <div class="claude-logo">
         <img src="data:image/png;base64,{logo_base64}" alt="Limosa Logo">
     </div>
-    <h1 class="clinical-title">Limosa</h1>
-    <p class="clinical-subtitle">AI-Powered Veterinary Diagnostics</p>
+    <h1 class="claude-title">Limosa</h1>
+    <p class="claude-subtitle">Veterinary Assistant</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Main Content Container
-st.markdown('<div class="clinical-main">', unsafe_allow_html=True)
-
-# Initialize chat history
+# Initialize chat history (no initial message)
 if 'messages' not in st.session_state:
-    st.session_state.messages = [{
-        'role': 'assistant',
-        'content': "Welcome to Limosa. I'm an AI assistant specialized in veterinary diagnostics. Upload medical images for analysis or ask me any veterinary questions."
-    }]
+    st.session_state.messages = []
 
-# Professional File Upload Section
-st.markdown("""
-<div class="clinical-upload">
-    <div class="clinical-upload-icon">📋</div>
-    <h3 style="margin: 0 0 0.5rem 0; color: var(--clinical-text);">Upload Veterinary Image</h3>
-    <p style="margin: 0; color: var(--clinical-text-light); font-size: 0.9rem;">
-        Drag and drop your X-rays, clinical photos, or diagnostic images here
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
-# Hidden file uploader (styled with CSS)
-uploaded_file = st.file_uploader("", type=['png', 'jpg', 'jpeg'], label_visibility="hidden")
-
-# Initialize defaults
+# Initialize defaults for file upload
 species = "Unknown"
 analysis_type = "General"
+uploaded_file = None
 
-# Professional Controls (when file is uploaded)
-if uploaded_file:
-    # Display uploaded image professionally
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-    
-    # Professional controls
-    st.markdown("""
-    <div class="clinical-controls">
-        <div style="text-align: center;">
-            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--clinical-text);">Species</label>
-        </div>
-        <div style="text-align: center;">
-            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--clinical-text);">Analysis Focus</label>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        species = st.selectbox("", ["Unknown", "Canine", "Feline", "Equine"], key="species")
-    with col2:
-        analysis_type = st.selectbox("", ["General", "Radiographic", "Dermatological"], key="analysis")
-
-# Professional Chat Interface
-st.markdown("""
-<div class="clinical-chat">
-    <div class="clinical-chat-header">
-        🩺 Veterinary Consultation
-    </div>
-""", unsafe_allow_html=True)
+# Claude-style Chat Interface
+st.markdown('<div class="claude-chat">', unsafe_allow_html=True)
 
 # Display chat messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-st.markdown('</div>', unsafe_allow_html=True)  # Close chat container
-
-# Close main content container
 st.markdown('</div>', unsafe_allow_html=True)
+
+# Claude-style Input Area with Upload and Mic buttons
+st.markdown("""
+<div class="claude-input-container">
+    <div class="claude-input-wrapper">
+        <div class="claude-upload-btn" title="Upload image">+</div>
+        <div style="flex: 1;"></div>
+        <div class="claude-mic-btn" title="Voice input">🎤</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Hidden file uploader
+uploaded_file = st.file_uploader("", type=['png', 'jpg', 'jpeg'], label_visibility="hidden", key="hidden_uploader")
+
+# Display uploaded image if any
+if uploaded_file:
+    st.image(uploaded_file, caption="Uploaded Image", width=300)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        species = st.selectbox("Species", ["Unknown", "Canine", "Feline", "Equine"])
+    with col2:
+        analysis_type = st.selectbox("Analysis Type", ["General", "Radiographic", "Dermatological"])
 
 # Professional Chat Input
 if prompt := st.chat_input("Type your veterinary question here..."):
