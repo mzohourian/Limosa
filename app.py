@@ -45,27 +45,34 @@ except:
     st.error("API key not configured")
     st.stop()
 
-# Initialize Enhanced Veterinary Assistant v4.0 (single initialization)
+# Initialize Enhanced Veterinary Assistant v4.0 (REQUIRED - no fallback)
 enhanced_vet_assistant = None
 
-if COMPREHENSIVE_SYSTEM_AVAILABLE:
-    try:
-        # Set environment variables for all systems
-        if "ANTHROPIC_API_KEY" in st.secrets:
-            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-        if "OPENAI_API_KEY" in st.secrets:
-            os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-        if "PINECONE_API_KEY" in st.secrets:
-            os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
-        
-        # Single initialization of Enhanced Veterinary Assistant v4.0
-        print("🔄 Initializing Enhanced Veterinary Assistant v4.0...")
-        enhanced_vet_assistant = EnhancedVeterinaryAssistantV4()
-        print("✅ Enhanced Veterinary Assistant v4.0 initialized successfully!")
-        
-    except Exception as e:
-        print(f"⚠️ Failed to initialize Enhanced Veterinary Assistant v4.0: {e}")
-        enhanced_vet_assistant = None
+if not COMPREHENSIVE_SYSTEM_AVAILABLE:
+    st.error("❌ Enhanced Veterinary Assistant v4.0 system is required but not available!")
+    st.error("Please ensure all dependencies are installed and API keys are configured.")
+    st.stop()
+
+try:
+    # Set environment variables for all systems
+    if "ANTHROPIC_API_KEY" in st.secrets:
+        os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+    if "OPENAI_API_KEY" in st.secrets:
+        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+    if "PINECONE_API_KEY" in st.secrets:
+        os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
+    
+    # Initialize Enhanced Veterinary Assistant v4.0 - REQUIRED
+    print("🔄 Initializing Enhanced Veterinary Assistant v4.0...")
+    enhanced_vet_assistant = EnhancedVeterinaryAssistantV4()
+    print("✅ Enhanced Veterinary Assistant v4.0 initialized successfully!")
+    
+except Exception as e:
+    print(f"❌ CRITICAL: Failed to initialize Enhanced Veterinary Assistant v4.0: {e}")
+    st.error("❌ Enhanced Veterinary Assistant v4.0 failed to initialize!")
+    st.error(f"Error: {e}")
+    st.error("This system requires the comprehensive veterinary knowledge base to function.")
+    st.stop()
 
 # Medical Blue and Snowy White CSS
 st.markdown("""
@@ -454,96 +461,61 @@ Provide structured, professional analysis suitable for veterinary case records."
         else:
             with st.spinner("🔍 Processing with Enhanced Veterinary Assistant v4.0..."):
                 try:
-                    if enhanced_vet_assistant and COMPREHENSIVE_SYSTEM_AVAILABLE:
-                        # Use Enhanced Veterinary Assistant v4.0 with all engines
-                        print(f"🎯 Using Enhanced Veterinary Assistant v4.0 for query: {prompt[:50]}...")
+                    # Use ONLY Enhanced Veterinary Assistant v4.0 - no fallback
+                    print(f"🎯 Using Enhanced Veterinary Assistant v4.0 for query: {prompt[:50]}...")
+                    
+                    # Query using comprehensive safety v4 method
+                    v4_response = enhanced_vet_assistant.query_with_comprehensive_safety_v4(prompt)
+                    
+                    if v4_response and 'answer' in v4_response:
+                        response_text = v4_response['answer']
                         
-                        # Query using comprehensive safety v4 method
-                        v4_response = enhanced_vet_assistant.query_with_comprehensive_safety_v4(prompt)
+                        # Add system metadata and capabilities used
+                        metadata_lines = []
                         
-                        if v4_response and 'answer' in v4_response:
-                            response_text = v4_response['answer']
+                        # Confidence and grounding
+                        if 'confidence' in v4_response:
+                            confidence = v4_response['confidence']
+                            metadata_lines.append(f"🎯 **Confidence:** {confidence:.1%}")
+                        
+                        if 'grounding_score' in v4_response:
+                            grounding = v4_response['grounding_score']
+                            metadata_lines.append(f"📚 **Knowledge Base Grounding:** {grounding:.1f}%")
+                        
+                        # Safety features activated
+                        safety = v4_response.get('safety_analysis', {})
+                        activated_features = []
+                        if safety.get('cri_engine_override'):
+                            activated_features.append("💉 CRI Calculation Engine")
+                        if safety.get('principle_based_retrieval_performed'):
+                            activated_features.append("🧠 Principle-Based Retrieval")
+                        if safety.get('interaction_analysis_performed'):
+                            activated_features.append("🧬 Drug Interaction Analysis")
+                        if safety.get('calculation_validation_performed'):
+                            activated_features.append("🧮 Mathematical Validation")
+                        
+                        if activated_features:
+                            metadata_lines.append("**Safety Systems Activated:** " + " | ".join(activated_features))
+                        
+                        # CRI calculation results
+                        cri_calc = v4_response.get('cri_calculation', {})
+                        if cri_calc and cri_calc.get('performed'):
+                            metadata_lines.append(f"💉 **CRI Calculation:** Total runtime {cri_calc.get('total_run_time_hours', 0):.1f} hours")
+                        
+                        # Add metadata if available
+                        if metadata_lines:
+                            response_text += f"\n\n---\n**📊 System Analysis:**\n" + "\n".join(metadata_lines)
                             
-                            # Add system metadata and capabilities used
-                            metadata_lines = []
-                            
-                            # Confidence and grounding
-                            if 'confidence' in v4_response:
-                                confidence = v4_response['confidence']
-                                metadata_lines.append(f"🎯 **Confidence:** {confidence:.1%}")
-                            
-                            if 'grounding_score' in v4_response:
-                                grounding = v4_response['grounding_score']
-                                metadata_lines.append(f"📚 **Knowledge Base Grounding:** {grounding:.1f}%")
-                            
-                            # Safety features activated
-                            safety = v4_response.get('safety_analysis', {})
-                            activated_features = []
-                            if safety.get('cri_engine_override'):
-                                activated_features.append("💉 CRI Calculation Engine")
-                            if safety.get('principle_based_retrieval_performed'):
-                                activated_features.append("🧠 Principle-Based Retrieval")
-                            if safety.get('interaction_analysis_performed'):
-                                activated_features.append("🧬 Drug Interaction Analysis")
-                            if safety.get('calculation_validation_performed'):
-                                activated_features.append("🧮 Mathematical Validation")
-                            
-                            if activated_features:
-                                metadata_lines.append("**Safety Systems Activated:** " + " | ".join(activated_features))
-                            
-                            # CRI calculation results
-                            cri_calc = v4_response.get('cri_calculation', {})
-                            if cri_calc and cri_calc.get('performed'):
-                                metadata_lines.append(f"💉 **CRI Calculation:** Total runtime {cri_calc.get('total_run_time_hours', 0):.1f} hours")
-                            
-                            # Add metadata if available
-                            if metadata_lines:
-                                response_text += f"\n\n---\n**📊 System Analysis:**\n" + "\n".join(metadata_lines)
-                                
-                            # Add professional disclaimer
-                            response_text += f"\n\n✅ **Enhanced Veterinary Assistant v4.0** - Based on comprehensive veterinary knowledge base with mathematical validation and safety analysis."
-                            
-                        else:
-                            response_text = "I'm having trouble accessing the Enhanced Veterinary Assistant v4.0 system. Let me provide a basic response."
+                        # Add professional disclaimer
+                        response_text += f"\n\n✅ **Enhanced Veterinary Assistant v4.0** - Based on comprehensive veterinary knowledge base with mathematical validation and safety analysis."
+                        
                     else:
-                        # Fallback to enhanced Claude system if v4.0 unavailable
-                        print("⚠️ Using fallback Claude system (Enhanced v4.0 not available)")
-                        
-                        veterinary_system = """You are an expert veterinary diagnostician with comprehensive knowledge of:
-
-• Veterinary pharmacology and drug dosages (including Plumb's Veterinary Drug Handbook)
-• Emergency medicine (GDV/bloat, shock, trauma)
-• Diagnostic imaging (X-rays, ultrasound)
-• Clinical pathology and laboratory values
-• Surgical procedures and techniques
-• Species-specific conditions (canine, feline, equine)
-• Infectious diseases and parasitology
-• Toxicology and poisoning management
-
-Provide professional, evidence-based veterinary advice. Always include:
-- Specific dosage calculations when relevant
-- Safety considerations and contraindications
-- Emergency protocols when applicable
-- Differential diagnosis considerations
-- Appropriate follow-up recommendations
-
-Use metric units (mg/kg) and provide ranges when appropriate. Always emphasize the need for hands-on examination and veterinary supervision."""
-                        
-                        response = client.messages.create(
-                            model="claude-3-5-haiku-20241022",
-                            max_tokens=1500,
-                            temperature=0.1,
-                            system=veterinary_system,
-                            messages=[{"role": "user", "content": prompt}]
-                        )
-                        
-                        response_text = response.content[0].text
-                        response_text += "\n\n*Note: Response based on Claude's general veterinary knowledge (Enhanced v4.0 system not available)*"
+                        response_text = "❌ Enhanced Veterinary Assistant v4.0 failed to generate a response. Please try again."
                     
                     st.markdown(response_text)
                     st.session_state.messages.append({"role": "assistant", "content": response_text})
                     
                 except Exception as e:
-                    error_msg = f"Error: {str(e)}"
+                    error_msg = f"❌ Enhanced Veterinary Assistant v4.0 Error: {str(e)}"
                     st.error(error_msg)
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
