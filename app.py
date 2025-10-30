@@ -3,6 +3,21 @@ import anthropic
 import base64
 from PIL import Image
 import io
+import os
+import sys
+
+# Add path to access comprehensive veterinary system
+sys.path.append('..')
+sys.path.append('../comprehensive_veterinary_drugs_database/production_code')
+
+# Import comprehensive veterinary knowledge system
+try:
+    from comprehensive_veterinary_drugs_database.production_code.final_95_confidence_standalone import Final95ConfidenceAssistant
+    KNOWLEDGE_BASE_AVAILABLE = True
+    print("✅ Comprehensive veterinary knowledge base loaded successfully!")
+except ImportError as e:
+    print(f"⚠️ Knowledge base not available: {e}")
+    KNOWLEDGE_BASE_AVAILABLE = False
 
 # Configure page
 st.set_page_config(
@@ -18,6 +33,30 @@ try:
 except:
     st.error("API key not configured")
     st.stop()
+
+# Initialize comprehensive veterinary knowledge base
+@st.cache_resource
+def initialize_veterinary_assistant():
+    """Initialize the comprehensive veterinary assistant with knowledge base"""
+    if KNOWLEDGE_BASE_AVAILABLE:
+        try:
+            # Set environment variables for the knowledge base
+            if "ANTHROPIC_API_KEY" in st.secrets:
+                os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+            if "OPENAI_API_KEY" in st.secrets:
+                os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+            if "PINECONE_API_KEY" in st.secrets:
+                os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"]
+            
+            vet_assistant = Final95ConfidenceAssistant()
+            return vet_assistant
+        except Exception as e:
+            print(f"⚠️ Failed to initialize knowledge base: {e}")
+            return None
+    return None
+
+# Try to initialize the comprehensive system
+vet_assistant = initialize_veterinary_assistant()
 
 # Medical Blue and Snowy White CSS
 st.markdown("""
@@ -272,7 +311,9 @@ with open("limosa.png", "rb") as f:
     logo_data = f.read()
     logo_base64 = base64.b64encode(logo_data).decode()
 
-# Header
+# Header with knowledge base status
+kb_status = "🎯 **Comprehensive Knowledge Base Active** (Plumb, Ettinger, Veterinary Textbooks)" if vet_assistant else "⚠️ Basic Knowledge Only"
+
 st.markdown(f"""
 <div class="limosa-header">
     <div class="limosa-logo">
@@ -280,6 +321,9 @@ st.markdown(f"""
     </div>
     <h1 class="limosa-title">Limosa</h1>
     <p class="limosa-subtitle">Veterinary Assistant</p>
+    <div style="margin-top: 1rem; font-size: 0.85rem; color: #4A90E2;">
+        {kb_status}
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -396,12 +440,39 @@ Provide structured, professional analysis suitable for veterinary case records."
                     st.error(error_msg)
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
         else:
-            with st.spinner("Thinking..."):
+            with st.spinner("🔍 Searching comprehensive veterinary knowledge base..."):
                 try:
-                    # Enhanced veterinary system prompt with built-in knowledge
-                    veterinary_system = """You are an expert veterinary diagnostician with comprehensive knowledge of:
+                    if vet_assistant and KNOWLEDGE_BASE_AVAILABLE:
+                        # Use comprehensive veterinary knowledge base with Pinecone + textbooks
+                        print(f"🎯 Using comprehensive knowledge base for query: {prompt[:50]}...")
+                        
+                        # Query the comprehensive system
+                        kb_response = vet_assistant.query_with_high_confidence(prompt)
+                        
+                        if kb_response and 'answer' in kb_response:
+                            response_text = kb_response['answer']
+                            
+                            # Add knowledge base attribution
+                            if 'sources' in kb_response and kb_response['sources']:
+                                response_text += f"\n\n**📚 Sources from veterinary textbooks and databases**"
+                            
+                            # Add confidence indicator if available
+                            if 'confidence' in kb_response:
+                                confidence = kb_response['confidence']
+                                if confidence > 0.9:
+                                    response_text += f"\n\n✅ **High confidence response** (based on Plumb, Ettinger, and comprehensive veterinary databases)"
+                                elif confidence > 0.7:
+                                    response_text += f"\n\n⚠️ **Moderate confidence response** - consider additional consultation"
+                        else:
+                            # Fallback to basic response
+                            response_text = "I'm having trouble accessing the comprehensive knowledge base. Let me provide a basic response."
+                    else:
+                        # Fallback to enhanced Claude system if knowledge base unavailable
+                        print("⚠️ Using fallback Claude system (knowledge base not available)")
+                        
+                        veterinary_system = """You are an expert veterinary diagnostician with comprehensive knowledge of:
 
-• Veterinary pharmacology and drug dosages
+• Veterinary pharmacology and drug dosages (including Plumb's Veterinary Drug Handbook)
 • Emergency medicine (GDV/bloat, shock, trauma)
 • Diagnostic imaging (X-rays, ultrasound)
 • Clinical pathology and laboratory values
@@ -418,16 +489,18 @@ Provide professional, evidence-based veterinary advice. Always include:
 - Appropriate follow-up recommendations
 
 Use metric units (mg/kg) and provide ranges when appropriate. Always emphasize the need for hands-on examination and veterinary supervision."""
+                        
+                        response = client.messages.create(
+                            model="claude-3-5-haiku-20241022",
+                            max_tokens=1500,
+                            temperature=0.1,
+                            system=veterinary_system,
+                            messages=[{"role": "user", "content": prompt}]
+                        )
+                        
+                        response_text = response.content[0].text
+                        response_text += "\n\n*Note: Response based on Claude's general veterinary knowledge (comprehensive knowledge base not available)*"
                     
-                    response = client.messages.create(
-                        model="claude-3-5-haiku-20241022",
-                        max_tokens=1500,
-                        temperature=0.1,
-                        system=veterinary_system,
-                        messages=[{"role": "user", "content": prompt}]
-                    )
-                    
-                    response_text = response.content[0].text
                     st.markdown(response_text)
                     st.session_state.messages.append({"role": "assistant", "content": response_text})
                     
