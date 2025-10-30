@@ -19,28 +19,17 @@ except:
     st.error("API key not configured")
     st.stop()
 
-# Professional Clinical Interface CSS
+# Medical Blue and Snowy White CSS
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-    --medical-blue: #4A90E2;
-    --medical-blue-light: #E8F4FD;
-    --medical-blue-dark: #2E5C8A;
-    --snowy-white: #FEFEFE;
-    --text-primary: #1a1a1a;
-    --text-secondary: #6b6b6b;
-    --border-light: #e5e5e5;
-    --shadow-light: rgba(74, 144, 226, 0.1);
-}
-
-/* Global Layout - Claude Style */
+/* Global styles */
 .main .block-container {
-    padding: 2rem;
+    padding: 0;
     max-width: 800px;
     margin: 0 auto;
-    background: var(--snowy-white);
+    background: #FEFEFE;
 }
 
 /* Hide Streamlit elements */
@@ -48,260 +37,195 @@ st.markdown("""
 footer {visibility: hidden;}
 header {visibility: hidden;}
 .stDeployButton {display: none;}
-.stDecoration {display: none;}
 
-/* Claude-style Header */
-.claude-header {
-    text-align: center;
-    padding: 2rem 0 3rem 0;
-    background: var(--snowy-white);
-    border-bottom: 1px solid var(--border-light);
-    margin-bottom: 2rem;
+/* Body background */
+body {
+    background-color: #FEFEFE !important;
 }
 
-.claude-logo {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 1rem;
+/* Header */
+.limosa-header {
+    text-align: center;
+    padding: 3rem 2rem 2rem 2rem;
+    background: #FEFEFE;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.limosa-logo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.claude-logo img {
-    width: 100px;
-    height: 100px;
-}
-
-.claude-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 0.5rem 0;
-}
-
-.claude-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-/* Claude-style Chat Interface */
-.claude-chat {
-    background: var(--snowy-white);
-    margin-bottom: 6rem;
-}
-
-/* Messages */
-.stChatMessage {
-    background: transparent;
-    border: none;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--clinical-border);
-}
-
-.stChatMessage:last-child {
-    border-bottom: none;
-}
-
-/* Chat Input */
-div[data-testid="stChatInput"] {
-    background: white;
-    border-top: 1px solid var(--clinical-border);
-    padding: 1rem 1.5rem;
-}
-
-/* Typography */
-body, .main, div {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--clinical-text);
-    line-height: 1.6;
-}
-
-h1, h2, h3 {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    color: var(--clinical-text);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .clinical-header {
-        padding: 2rem 1rem;
-    }
-    
-    .clinical-main {
-        padding: 2rem 1rem;
-    }
-    
-    .clinical-title {
-        font-size: 2rem;
-    }
-    
-    .clinical-controls {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Custom File Uploader Styling */
-.stFileUploader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.stFileUploader > div {
-    height: 100%;
-}
-
-.stFileUploader > div > div {
-    height: 100%;
-    border: none !important;
+.limosa-logo img {
+    width: 140px;
+    height: 140px;
     background: transparent !important;
 }
 
-/* Position file uploader over custom upload area */
-.clinical-upload {
-    position: relative;
-    cursor: pointer;
-}
-
-/* Professional Select Boxes */
-.stSelectbox > div > div {
-    background: white;
-    border: 1px solid var(--clinical-border);
-    border-radius: 8px;
+.limosa-title {
     font-family: 'Inter', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
 }
 
-/* Claude-style Input Area */
-.claude-input-container {
+.limosa-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #6b6b6b;
+    margin: 0;
+}
+
+/* Chat area */
+.chat-container {
+    padding: 2rem;
+    background: #FEFEFE;
+    min-height: 400px;
+}
+
+/* Chat messages */
+.stChatMessage {
+    background: transparent;
+    padding: 1rem 0;
+    border: none;
+}
+
+/* Input area styling */
+.input-area {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--snowy-white);
-    border-top: 1px solid var(--border-light);
+    background: #FEFEFE;
+    border-top: 1px solid #e5e5e5;
     padding: 1.5rem;
     z-index: 1000;
 }
 
-.claude-input-wrapper {
+.input-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 10px rgba(74, 144, 226, 0.1);
 }
 
-.claude-upload-btn {
-    width: 40px;
-    height: 40px;
+.upload-btn {
+    width: 36px;
+    height: 36px;
+    background: white;
+    border: 1px solid #e5e5e5;
     border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: var(--snowy-white);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: #6b6b6b;
     transition: all 0.2s ease;
 }
 
-.claude-upload-btn:hover {
-    background: var(--medical-blue-light);
-    color: var(--medical-blue);
-    border-color: var(--medical-blue);
+.upload-btn:hover {
+    background: #E8F4FD;
+    border-color: #4A90E2;
+    color: #4A90E2;
 }
 
-.claude-mic-btn {
-    width: 40px;
-    height: 40px;
+.mic-btn {
+    width: 36px;
+    height: 36px;
+    background: white;
+    border: 1px solid #e5e5e5;
     border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: var(--snowy-white);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1.1rem;
-    color: var(--text-secondary);
+    font-size: 1rem;
+    color: #6b6b6b;
     transition: all 0.2s ease;
 }
 
-.claude-mic-btn:hover {
-    background: var(--medical-blue-light);
-    color: var(--medical-blue);
-    border-color: var(--medical-blue);
+.mic-btn:hover {
+    background: #E8F4FD;
+    border-color: #4A90E2;
+    color: #4A90E2;
 }
 
-/* Hide default chat input styling */
+/* Chat input field */
 div[data-testid="stChatInput"] {
+    flex: 1;
+    margin: 0 0.5rem;
+    border: none;
+    background: transparent;
+}
+
+div[data-testid="stChatInput"] > div {
+    border: none;
+    background: transparent;
+}
+
+/* File uploader */
+.stFileUploader {
     display: none;
 }
 
-/* Professional Status Messages */
-.stAlert {
-    border-radius: 8px;
-    border: none;
-    box-shadow: 0 2px 10px var(--clinical-shadow);
+/* Select boxes */
+.stSelectbox {
+    margin: 0.5rem 0;
 }
 
-.stSuccess {
-    background: rgba(39, 174, 96, 0.1);
-    color: var(--clinical-success);
+/* Medical blue accents */
+.medical-accent {
+    color: #4A90E2;
 }
 
-.stError {
-    background: rgba(231, 76, 60, 0.1);
-    color: var(--clinical-error);
+/* Uploaded image styling */
+.uploaded-image {
+    text-align: center;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #E8F4FD;
+    border-radius: 12px;
+    border: 1px solid #4A90E2;
 }
 
-.stWarning {
-    background: rgba(243, 156, 18, 0.1);
-    color: var(--clinical-warning);
-}
 </style>
 """, unsafe_allow_html=True)
 
-# Professional Clinical Interface
-# Read and encode logo
+# Load and encode logo
 with open("limosa.png", "rb") as f:
     logo_data = f.read()
     logo_base64 = base64.b64encode(logo_data).decode()
 
-# Claude-style Header
+# Header
 st.markdown(f"""
-<div class="claude-header">
-    <div class="claude-logo">
+<div class="limosa-header">
+    <div class="limosa-logo">
         <img src="data:image/png;base64,{logo_base64}" alt="Limosa Logo">
     </div>
-    <h1 class="claude-title">Limosa</h1>
-    <p class="claude-subtitle">Veterinary Assistant</p>
+    <h1 class="limosa-title">Limosa</h1>
+    <p class="limosa-subtitle">Veterinary Assistant</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Initialize chat history (no initial message)
+# Initialize chat history - NO INITIAL MESSAGE
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
-# Initialize defaults for file upload
-species = "Unknown"
-analysis_type = "General"
-uploaded_file = None
-
-# Claude-style Chat Interface
-st.markdown('<div class="claude-chat">', unsafe_allow_html=True)
+# Chat container
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
 # Display chat messages
 for message in st.session_state.messages:
@@ -310,31 +234,44 @@ for message in st.session_state.messages:
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Claude-style Input Area with Upload and Mic buttons
-st.markdown("""
-<div class="claude-input-container">
-    <div class="claude-input-wrapper">
-        <div class="claude-upload-btn" title="Upload image">+</div>
-        <div style="flex: 1;"></div>
-        <div class="claude-mic-btn" title="Voice input">🎤</div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# File upload (hidden)
+uploaded_file = st.file_uploader("", type=['png', 'jpg', 'jpeg'], label_visibility="hidden", key="file_upload")
 
-# Hidden file uploader
-uploaded_file = st.file_uploader("", type=['png', 'jpg', 'jpeg'], label_visibility="hidden", key="hidden_uploader")
+# Initialize defaults
+species = "Unknown"
+analysis_type = "General"
 
-# Display uploaded image if any
+# Show uploaded image and controls if file is uploaded
 if uploaded_file:
-    st.image(uploaded_file, caption="Uploaded Image", width=300)
+    st.markdown('<div class="uploaded-image">', unsafe_allow_html=True)
+    st.image(uploaded_file, caption="Uploaded Image", width=400)
     
     col1, col2 = st.columns(2)
     with col1:
         species = st.selectbox("Species", ["Unknown", "Canine", "Feline", "Equine"])
     with col2:
         analysis_type = st.selectbox("Analysis Type", ["General", "Radiographic", "Dermatological"])
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# Professional Chat Input
+# Input area with upload and mic buttons
+st.markdown("""
+<div class="input-area">
+    <div class="input-wrapper">
+        <div class="upload-btn" onclick="document.querySelector('[data-testid=\\"stFileUploadDropzone\\"]').click()" title="Upload image">
+            +
+        </div>
+        <div style="flex: 1; display: flex; align-items: center;">
+            <!-- Chat input will be inserted here by Streamlit -->
+        </div>
+        <div class="mic-btn" title="Voice input">
+            🎤
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Chat input
 if prompt := st.chat_input("Type your veterinary question here..."):
     # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -452,4 +389,3 @@ Use metric units (mg/kg) and provide ranges when appropriate. Always emphasize t
                     error_msg = f"Error: {str(e)}"
                     st.error(error_msg)
                     st.session_state.messages.append({"role": "assistant", "content": error_msg})
-
